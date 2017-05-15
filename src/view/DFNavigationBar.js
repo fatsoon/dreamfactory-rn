@@ -26,7 +26,7 @@ export default class DFNavigationBar extends Component {
             return (
                 <TouchableHighlight onPress={this.props.onClickedRightButton}>
                     <View
-                        style={{width: 48, height: 48,backgroundColor: 'red',justifyContent: 'center', alignItems: 'center'}}
+                        style={{width: 48, height: 48,backgroundColor: '#0067ba',justifyContent: 'center', alignItems: 'center'}}
                     >
                         <Text
                             style={{fontSize:16, color:"white"}}>{this.props.rightButtonText}</Text>
@@ -42,7 +42,7 @@ export default class DFNavigationBar extends Component {
                 <TouchableHighlight onPress={this.props.onBack}
                                     style={{justifyContent: 'center', alignItems: 'center'}}>
                     <Image
-                        style={{backgroundColor: 'red', width: 48, height: 48, resizeMode: 'center'}}
+                        style={{backgroundColor: '#0067ba', width: 48, height: 48, resizeMode: 'center'}}
                         source={require('../img/df_home_title_btn_back.png')}
                     />
                 </TouchableHighlight>
@@ -58,7 +58,7 @@ export default class DFNavigationBar extends Component {
 
 const styles = StyleSheet.create({
     bar: {
-        backgroundColor: 'red',
+        backgroundColor: '#0067ba',
         height: 48,
         flexDirection: 'row',
         justifyContent: 'flex-start',

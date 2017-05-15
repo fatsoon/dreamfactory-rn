@@ -11,7 +11,6 @@ import {
     Button,
     Image,
     View,
-    StatusBar,
 } from 'react-native';
 import CommonStyle from '../../styles/CommonStyle.js';
 import DFNavigationBar from '../../view/DFNavigationBar.js'
@@ -36,12 +35,6 @@ export default class HomeScreen extends React.Component{
             <View
                 style={styles.contentView}
             >
-                <StatusBar
-                    backgroundColor="red"
-                    barStyle="light-content"
-                    translucent={true}
-                />
-
                 <View
                     style={{flex:1, backgroundColor:'gray'}}
 

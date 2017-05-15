@@ -10,30 +10,61 @@ import {
     Text,
     Button,
     Image,
-    View
+    View,
+    StatusBar
 } from 'react-native';
-import { TabNavigator } from 'react-navigation';
+import { TabNavigator, StackNavigator } from 'react-navigation';
 import HomeScreen from './screen/home/HomeScreen.js'
 import RecordScreen from './screen/record/RecordScreen.js'
 import MineScreen from './screen/mine/MineScreen.js'
 
+export default class DFApp extends Component{
+
+    constructor() {
+        super()
+
+        StatusBar.setBarStyle('light-content')
+    }
+
+    render(){
+        return(
+            <MyStack />
+        );
+    }
+}
+
+const Tab = TabNavigator(
+    {
+        Home: {
+            screen: HomeScreen,
+        },
+        Record: {
+            screen: RecordScreen,
+        },
+        Mine: {
+            screen: MineScreen,
+        },
+    },
+    {
+        tabBarOptions: {
+            activeTintColor: '#0067ba',
+        },
+    }
+);
 
 
-const DFApp = TabNavigator({
-    Home: {
-        screen: HomeScreen,
+const MyStack = StackNavigator(
+    {
+        Home: {
+            screen: Tab,
+        },
     },
-    Record: {
-        screen: RecordScreen,
-    },
-    Mine: {
-        screen: MineScreen,
-    },
-}, {
-    tabBarOptions: {
-        activeTintColor: '#0067ba',
-    },
-});
-
-
-export default DFApp;
+    {
+        navigationOptions: {
+            // headerStyle: { backgroundColor: color.theme }
+            headerBackTitle: null,
+            headerTintColor: '#0067ba',
+            showIcon: true,
+        },
+    }
+);
