@@ -93,14 +93,14 @@ export default class LoginScreen extends React.Component{
                         marginTop: 30,
                     }}
                     underlayColor= '#064477'
-                    onPress={this._onLoginButtonClick} >
+                    onPress={this._onLoginButtonClick.bind(this)} >
                 </RadiusButton>
             </View>
         );
     }
 
     _onLoginButtonClick(){
-        alert("login");
+        this.props.navigation.navigate('HomeTab');
     }
 
 }
