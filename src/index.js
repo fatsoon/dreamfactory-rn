@@ -17,6 +17,8 @@ import { TabNavigator, StackNavigator } from 'react-navigation';
 import HomeScreen from './screen/home/HomeScreen.js'
 import RecordScreen from './screen/record/RecordScreen.js'
 import MineScreen from './screen/mine/MineScreen.js'
+import LoginScreen from './screen/login/LoginScreen.js'
+import SignUpScreen from './screen/login/SignUpScreen.js'
 
 export default class DFApp extends Component{
 
@@ -33,7 +35,7 @@ export default class DFApp extends Component{
     }
 }
 
-const Tab = TabNavigator(
+const HomeTab = TabNavigator(
     {
         Home: {
             screen: HomeScreen,
@@ -53,18 +55,65 @@ const Tab = TabNavigator(
 );
 
 
-const MyStack = StackNavigator(
-    {
-        Home: {
-            screen: Tab,
+const MyStack = StackNavigator({
+    Login:{
+        screen: LoginScreen,
+
+    },
+    SignUp:{
+        screen: SignUpScreen,
+        navigationOptions: {
+            headerBackTitle: null,
+            headerTintColor: '#ffffff',
+            showIcon: true,
+            title: '注册',
+            headerStyle:{
+                backgroundColor: '#0067ba',
+            },
+            headerTitleStyle:{
+                color: '#ffffff',
+            }
         },
     },
-    {
+    HomeTab: {
+        screen: HomeTab,
         navigationOptions: {
             // headerStyle: { backgroundColor: color.theme }
-            headerBackTitle: null,
-            headerTintColor: '#0067ba',
+            headerLeft:null,
+            headerTintColor: '#ffffff',
             showIcon: true,
+            headerStyle:{
+                backgroundColor: '#0067ba',
+            },
+            headerTitleStyle:{
+                color: '#ffffff',
+            }
         },
+    },
+
+});
+
+const defaultGetStateForAction = MyStack.router.getStateForAction;
+
+MyStack.router.getStateForAction = (action, state) => {
+    if (state && action.type === 'Navigation/NAVIGATE' && action.routeName === 'HomeTab') {
+        const initialNavState = {
+            index: 0,
+            routes: [
+                {
+                    key: 'HomeTab',
+                    routeName: 'HomeTab',
+                    index: 0,
+                    routes: [
+                        { key: 'Home', routeName: 'Home', },
+                        { key: 'Record', routeName: 'Record', },
+                        { key: 'Mine', routeName: 'Mine', },
+                    ],
+                },
+            ],
+        };
+        return initialNavState;
     }
-);
+    return defaultGetStateForAction(action, state);
+};
+

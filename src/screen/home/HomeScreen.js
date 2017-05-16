@@ -13,7 +13,6 @@ import {
     View,
 } from 'react-native';
 import CommonStyle from '../../styles/CommonStyle.js';
-import DFNavigationBar from '../../view/DFNavigationBar.js'
 
 export default class HomeScreen extends React.Component{
 
@@ -28,6 +27,7 @@ export default class HomeScreen extends React.Component{
                 style={[CommonStyle.tabbarIcon, {tintColor: tintColor}]}
             />
         ),
+        title: '首页',
     };
 
     render() {

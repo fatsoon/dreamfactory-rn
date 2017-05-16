@@ -13,6 +13,10 @@ const CommonStyle = StyleSheet.create({
         width: 26,
         height: 26,
     },
+    headerRightButton:{
+        color: '#ffffff',
+        fontSize: 20,
+    }
 });
 
 module.exports = CommonStyle

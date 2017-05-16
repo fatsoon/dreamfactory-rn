@@ -26,6 +26,7 @@ export default class MineScreen extends React.Component{
                 style={[CommonStyle.tabbarIcon, {tintColor: tintColor}]}
             />
         ),
+        title: '我',
     };
 
     render() {

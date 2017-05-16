@@ -26,13 +26,14 @@ export default class RecordScreen extends React.Component{
                 style={[CommonStyle.tabbarIcon, {tintColor: tintColor}]}
             />
         ),
+        title: '记录',
     };
 
     render() {
         return (
             <Button
-                onPress={() => this.props.navigation.navigate('Notifications')}
-                title="Go to notifications"
+                onPress={() => this.props.navigation.navigate('Login')}
+                title="Go to Login"
             />
         );
     }
