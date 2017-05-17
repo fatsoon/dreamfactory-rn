@@ -19,6 +19,7 @@ import {
 import CommonStyle from '../../styles/CommonStyle.js';
 import DFNavigationItem from '../../view/DFNavigationItem.js';
 import RadiusButton from '../../view/RadiusButton.js';
+import InputRow from '../../view/InputRow.js';
 
 
 export default class LoginScreen extends React.Component{
@@ -52,31 +53,15 @@ export default class LoginScreen extends React.Component{
         return (
             <View style={styles.container}>
                 <View style={styles.topSpace} />
-                <View
-                    style={styles.row}
-                >
-                    <Image style={styles.icon} source={require('../../img/df_ic_phone_iphone.png')} />
-                    <TextInput
-                        style={styles.input}
-                        onChangeText={(text) => this.setState({text})}
-                        placeholder="请输入您的手机号"
-                        placeholderTextColor="#c7c7cd"
-                    />
-                </View>
-
-                <View style={styles.line} />
-
-                <View
-                    style={styles.row}
-                >
-                    <Image style={styles.icon} source={require('../../img/df_ic_lock_outline.png')} />
-                    <TextInput
-                        style={styles.input}
-                        onChangeText={(text) => this.setState({text})}
-                        placeholder="请输入登录密码"
-                        placeholderTextColor="#c7c7cd"
-                    />
-                </View>
+                <InputRow
+                    showLine={true}
+                    placeHolder="请输入您的手机号"
+                    iconSource={require('../../img/df_ic_phone_iphone.png')}
+                />
+                <InputRow
+                    placeHolder="请输入登录密码"
+                    iconSource={require('../../img/df_ic_lock_outline.png')}
+                />
 
                 <RadiusButton
                     btnName= '登录'

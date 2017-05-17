@@ -21,7 +21,7 @@ export default class SignUpScreen extends React.Component{
     render() {
         return (
         <View>
-
+            <View style={styles.topSpace} />
             <InputRow
                 showLine={true}
                 placeHolder="请输入您的手机号"
@@ -66,5 +66,8 @@ export default class SignUpScreen extends React.Component{
 }
 
 const styles = StyleSheet.create({
-
+    topSpace:{
+        height:10,
+        backgroundColor:'#f4f4f4'
+    },
 });
