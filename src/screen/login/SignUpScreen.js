@@ -30,11 +30,11 @@ export default class SignUpScreen extends React.Component{
             <InputRow
                 showLine={true}
                 placeHolder="请输入验证码"
-                iconSource={require('../../img/df_ic_lock_outline.png')}
+                iconSource={require('../../img/df_ic_message.png')}
             />
             <InputRow
                 placeHolder="请输入密码"
-                iconSource={require('../../img/df_ic_phone_iphone.png')}
+                iconSource={require('../../img/df_ic_lock_outline.png')}
             />
 
             <RadiusButton
