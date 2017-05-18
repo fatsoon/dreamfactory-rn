@@ -24,7 +24,7 @@ export default class RadiusButton extends Component{
         btnName: PropTypes.string,
         textStyle: Text.propTypes.style,
         btnStyle: TouchableHighlight.propTypes.style,
-        underlayColor:       TouchableHighlight.propTypes.underlayColor,
+        underlayColor: TouchableHighlight.propTypes.underlayColor,
     };
 
     static defaultProps = {

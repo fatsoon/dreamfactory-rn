@@ -19,6 +19,7 @@ import RecordScreen from './screen/record/RecordScreen.js'
 import MineScreen from './screen/mine/MineScreen.js'
 import LoginScreen from './screen/login/LoginScreen.js'
 import SignUpScreen from './screen/login/SignUpScreen.js'
+import LauncherScreen from './screen/launcher/LauncherScreen.js'
 
 export default class DFApp extends Component{
 
@@ -56,6 +57,10 @@ const HomeTab = TabNavigator(
 
 
 const MyStack = StackNavigator({
+    Launcher:{
+        screen: LauncherScreen,
+
+    },
     Login:{
         screen: LoginScreen,
 
@@ -96,6 +101,18 @@ const MyStack = StackNavigator({
 const defaultGetStateForAction = MyStack.router.getStateForAction;
 
 MyStack.router.getStateForAction = (action, state) => {
+    if (state && action.type === 'Navigation/NAVIGATE' && action.routeName === 'Login') {
+        const initialNavState = {
+            index: 0,
+            routes: [
+                {
+                    key: 'Login',
+                    routeName: 'Login'
+                },
+            ],
+        };
+        return initialNavState;
+    }
     if (state && action.type === 'Navigation/NAVIGATE' && action.routeName === 'HomeTab') {
         const initialNavState = {
             index: 0,

@@ -99,30 +99,5 @@ const styles = StyleSheet.create({
         height:10,
         backgroundColor:'#f4f4f4'
     },
-    row:{
-        flexDirection: 'row',
-        alignItems: 'center',
-        height:50,
-        backgroundColor:'#ffffff',
-        paddingLeft: 10,
-        paddingRight:10,
-    },
-    line:{
-        height: 1,
-        backgroundColor: '#dddddd',
-        marginLeft: 10,
-        marginRight: 10,
-    },
-    icon:{
-        width:20,
-        height:20,
-    },
-    input:{
-        flex:1,
-        marginLeft: 5,
-        alignItems: 'center',
-        justifyContent: 'center',
-        fontSize: 15,
-    }
 
 });

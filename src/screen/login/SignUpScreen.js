@@ -10,11 +10,13 @@ import {
     StyleSheet,
     Button,
     Image,
-    View
+    View,
+    TextInput
 } from 'react-native';
 import CommonStyle from '../../styles/CommonStyle.js';
 import InputRow from '../../view/InputRow.js';
 import RadiusButton from '../../view/RadiusButton.js';
+import ValcodeButton from '../../view/ValcodeButton.js';
 
 export default class SignUpScreen extends React.Component{
 
@@ -27,11 +29,24 @@ export default class SignUpScreen extends React.Component{
                 placeHolder="请输入您的手机号"
                 iconSource={require('../../img/df_ic_phone_iphone.png')}
             />
-            <InputRow
-                showLine={true}
-                placeHolder="请输入验证码"
-                iconSource={require('../../img/df_ic_message.png')}
-            />
+            <View style = {{
+                backgroundColor:"#ffffff"}}>
+                <View
+                    style={styles.row}
+                >
+                    <Image style={styles.icon} source={require('../../img/df_ic_message.png')} />
+                    <TextInput
+                        style={styles.input}
+                        onChangeText={(text) => this.setState({text})}
+                        placeholder="请输入验证码"
+                        placeholderTextColor="#c7c7cd"
+                    />
+                    <ValcodeButton />
+                </View>
+
+                <View style={styles.line} />
+
+            </View>
             <InputRow
                 placeHolder="请输入密码"
                 iconSource={require('../../img/df_ic_lock_outline.png')}
@@ -62,6 +77,9 @@ export default class SignUpScreen extends React.Component{
     _onRegisterButtonClick(){
         this.props.navigation.navigate('HomeTab');
     }
+    _onValcodeButtonClick(){
+
+    }
 
 }
 
@@ -70,4 +88,29 @@ const styles = StyleSheet.create({
         height:10,
         backgroundColor:'#f4f4f4'
     },
+    row:{
+        flexDirection: 'row',
+        alignItems: 'center',
+        height:50,
+        backgroundColor:'#ffffff',
+        paddingLeft: 10,
+        paddingRight:10,
+    },
+    line:{
+        height: 1,
+        backgroundColor: '#dddddd',
+        marginLeft: 10,
+        marginRight: 10,
+    },
+    icon:{
+        width:20,
+        height:20,
+    },
+    input:{
+        flex:1,
+        marginLeft: 5,
+        alignItems: 'center',
+        justifyContent: 'center',
+        fontSize: 15,
+    }
 });
