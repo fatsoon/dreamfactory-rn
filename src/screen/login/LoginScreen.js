@@ -99,8 +99,8 @@ export default class LoginScreen extends React.Component{
     }
 
     _onLoginButtonClick(){
-        // this.props.navigation.navigate('HomeTab');
-        NetUtil.login_via_phone(this.state.phone, this.state.password, this._loginCallBack.bind(this))
+        this.props.navigation.navigate('HomeTab');
+        // NetUtil.login_via_phone(this.state.phone, this.state.password, this._loginCallBack.bind(this))
     }
 
     _loginCallBack(json){

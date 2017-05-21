@@ -70,4 +70,26 @@ export default class NetUtil {
         );
     }
 
+    /**
+     * 热门列表
+     */
+    static hot_dreams(uid, limit, offset, callback) {
+        this.post(
+            'hot_dreams',
+            'uid='+uid+'&limit='+limit + '&offset='+offset,
+            callback,
+        );
+    }
+
+    /**
+     * 最新列表
+     */
+    static latest_dreams(uid, limit, offset, callback) {
+        this.post(
+            'latest_dreams',
+            'uid='+uid+'&limit='+limit + '&offset='+offset,
+            callback,
+        );
+    }
+
 }
