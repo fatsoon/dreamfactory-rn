@@ -11,14 +11,26 @@ import {
     Button,
     Image,
     View,
-    TextInput
+    TextInput,
+    Alert,
+    AsyncStorage,
 } from 'react-native';
 import CommonStyle from '../../styles/CommonStyle.js';
 import InputRow from '../../view/InputRow.js';
 import RadiusButton from '../../view/RadiusButton.js';
 import ValcodeButton from '../../view/ValcodeButton.js';
+import NetUtil from '../../util/NetUtil.js'
 
 export default class SignUpScreen extends React.Component{
+
+    constructor(props){
+        super(props);
+        this.state={
+            phone:'',
+            valcode:'',
+            password:'',
+        };
+    }
 
     render() {
         return (
@@ -28,6 +40,8 @@ export default class SignUpScreen extends React.Component{
                 showLine={true}
                 placeHolder="请输入您的手机号"
                 iconSource={require('../../img/df_ic_phone_iphone.png')}
+                onChangeText={(text) => this.setState({phone:text})}
+                keyboardType="numeric"
             />
             <View style = {{
                 backgroundColor:"#ffffff"}}>
@@ -37,11 +51,14 @@ export default class SignUpScreen extends React.Component{
                     <Image style={styles.icon} source={require('../../img/df_ic_message.png')} />
                     <TextInput
                         style={styles.input}
-                        onChangeText={(text) => this.setState({text})}
+                        onChangeText={(text) => this.setState({valcode:text})}
                         placeholder="请输入验证码"
                         placeholderTextColor="#c7c7cd"
+                        keyboardType="numeric"
                     />
-                    <ValcodeButton />
+                    <ValcodeButton
+                        phone={this.state.phone}
+                    />
                 </View>
 
                 <View style={styles.line} />
@@ -50,6 +67,8 @@ export default class SignUpScreen extends React.Component{
             <InputRow
                 placeHolder="请输入密码"
                 iconSource={require('../../img/df_ic_lock_outline.png')}
+                onChangeText={(text) => this.setState({password:text})}
+                secureTextEntry={true}
             />
 
             <RadiusButton
@@ -75,10 +94,35 @@ export default class SignUpScreen extends React.Component{
     }
 
     _onRegisterButtonClick(){
-        this.props.navigation.navigate('HomeTab');
+        if(!this.state.phone || this.state.phone.length != 11){
+            Alert.alert("提示","请输入正确的手机号")
+            return;
+        }
+        if(!this.state.valcode || this.state.valcode.length != 4){
+            Alert.alert("提示","请输入正确的验证码")
+            return;
+        }
+        if(!this.state.password || this.state.valcode.length == 0){
+            Alert.alert("提示","请输入密码")
+            return;
+        }
+        NetUtil.register_via_phone(this.state.phone, this.state.password, this.state.valcode, this._registerCallBack.bind(this));
+        // this.props.navigation.navigate('HomeTab');
     }
-    _onValcodeButtonClick(){
 
+    _registerCallBack(json){
+        if(json.code == 0){
+            AsyncStorage.setItem("user",JSON.stringify(json.data), (error)=>{
+                if(error){
+                    alert(error);
+                }
+
+            });
+            this.props.navigation.navigate('HomeTab');
+        }
+        else{
+            Alert.alert("提示", json.message)
+        }
     }
 
 }

@@ -19,6 +19,8 @@ import {
     Alert
 } from 'react-native';
 
+import NetUtil from '../util/NetUtil.js'
+
 export default class ValcodeButton extends Component{
 
     static propTypes = {
@@ -73,16 +75,33 @@ export default class ValcodeButton extends Component{
     }
 
     _onButtonClick(){
-        Alert.alert("提示","发送成功")
-        this.second = 10;
-        this.setState({
-            enable: false,
-            buttonText:'重新获取'+this.second+'s'
-        });
-        this.timer = setInterval(
-            this._secondTask.bind(this),
-            1000
-        );
+        // Alert.alert("提示", this.props.phone)
+        if(this.props.phone && this.props.phone.length == 11){
+            NetUtil.send_valcode(this.props.phone, this._sendValcodeCallBack.bind(this));
+        }
+        else{
+            Alert.alert("提示", '请填写正确的手机号')
+        }
+
+
+    }
+
+    _sendValcodeCallBack(json){
+        if(json.code == 0){
+            Alert.alert("提示","发送成功")
+            this.second = 10;
+            this.setState({
+                enable: false,
+                buttonText:'重新获取'+this.second+'s'
+            });
+            this.timer = setInterval(
+                this._secondTask.bind(this),
+                1000
+            );
+        }
+        else{
+            Alert.alert("提示",json.message)
+        }
     }
 
     _secondTask(){

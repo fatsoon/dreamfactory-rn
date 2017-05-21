@@ -14,18 +14,28 @@ import {
     TouchableHighlight,
     TouchableOpacity,
     Text,
-    TextInput
+    TextInput,
+    Alert,
+    AsyncStorage,
 } from 'react-native';
 import CommonStyle from '../../styles/CommonStyle.js';
 import DFNavigationItem from '../../view/DFNavigationItem.js';
 import RadiusButton from '../../view/RadiusButton.js';
 import InputRow from '../../view/InputRow.js';
+import NetUtil from '../../util/NetUtil.js'
 
 
 export default class LoginScreen extends React.Component{
 
     constructor(props){
         super(props);
+    }
+
+    componentDidMount() {
+        AsyncStorage.getItem("user", (error, result)=>{
+            alert(result);
+        });
+
     }
 
     static navigationOptions = ({ navigation }) => {
@@ -57,10 +67,14 @@ export default class LoginScreen extends React.Component{
                     showLine={true}
                     placeHolder="请输入您的手机号"
                     iconSource={require('../../img/df_ic_phone_iphone.png')}
+                    onChangeText={(text) => this.setState({phone:text})}
+                    keyboardType="numeric"
                 />
                 <InputRow
                     placeHolder="请输入登录密码"
                     iconSource={require('../../img/df_ic_lock_outline.png')}
+                    onChangeText={(text) => this.setState({password:text})}
+                    secureTextEntry={true}
                 />
 
                 <RadiusButton
@@ -85,7 +99,22 @@ export default class LoginScreen extends React.Component{
     }
 
     _onLoginButtonClick(){
-        this.props.navigation.navigate('HomeTab');
+        // this.props.navigation.navigate('HomeTab');
+        NetUtil.login_via_phone(this.state.phone, this.state.password, this._loginCallBack.bind(this))
+    }
+
+    _loginCallBack(json){
+        if(json.code == 0){
+            AsyncStorage.setItem("user",JSON.stringify(json.data), (error)=>{
+                if(error){
+                    alert(error);
+                }
+            });
+            this.props.navigation.navigate('HomeTab');
+        }
+        else{
+            Alert.alert("提示",json.message)
+        }
     }
 
 }

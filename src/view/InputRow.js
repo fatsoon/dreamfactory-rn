@@ -24,10 +24,15 @@ export default class InputRow extends Component{
         placeHolder: PropTypes.string,
         iconSource: PropTypes.object,
         showLine: PropTypes.bool,
+        onChangeText: PropTypes.func,
+        secureTextEntry: PropTypes.bool,
+        keyboardType: PropTypes.string,
     };
 
     static defaultProps = {
         showLine: false,
+        secureTextEntry: false,
+        keyboardType: 'default',
     };
 
 
@@ -41,9 +46,11 @@ export default class InputRow extends Component{
                     <Image style={styles.icon} source={this.props.iconSource} />
                     <TextInput
                         style={styles.input}
-                        onChangeText={(text) => this.setState({text})}
+                        onChangeText={this.props.onChangeText}
                         placeholder={this.props.placeHolder}
                         placeholderTextColor="#c7c7cd"
+                        secureTextEntry = {this.props.secureTextEntry}
+                        keyboardType={this.props.keyboardType}
                     />
                 </View>
 
