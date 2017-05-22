@@ -21,6 +21,8 @@ import {
     TextInput
 } from 'react-native';
 
+import DateUtil from '../../util/DateUtil.js'
+
 export default class InputRow extends Component{
     static propTypes = {
         dream: PropTypes.object,
@@ -46,7 +48,7 @@ export default class InputRow extends Component{
                         <Text
                             style={styles.time}
                         >
-                            5小时前
+                            {DateUtil.timeAgo(this.props.dream.dream.create_time_long)}
                         </Text>
 
                     </View>
@@ -54,26 +56,53 @@ export default class InputRow extends Component{
                 </View>
                 <Text
                     style={styles.content}
+                    numberOfLines={10}
                 >
                     {this.props.dream.dream.content}
                 </Text>
                 <View style = {styles.bottom}>
-                    <Text
-                        style={styles.up}
-                    >
-                        {"赞"+this.props.dream.dream.up_num}
-                    </Text>
+
+                    <TouchableHighlight
+                        underlayColor='#cacaca'
+                        activeOpacity={0.5}
+                        style={styles.roundButton}
+                        onPress={this._onUpPress.bind(this)}>
+                        <Text
+                            style={styles.up}
+                        >
+                            赞
+                        </Text>
+                    </TouchableHighlight>
 
                     <Text
-                        style={styles.up}
+                        style={styles.bottomText}
                     >
-                        {"评论"+this.props.dream.comment_num}
+                        {this.props.dream.dream.up_num}
+                    </Text>
+
+
+                    <TouchableHighlight
+                        underlayColor='#cacaca'
+                        activeOpacity={0.5}
+                        style={styles.roundButton}
+                        onPress={this._onUpPress.bind(this)}>
+                        <Image style={styles.comment} source={require('../../img/ic_comment_24dp.png')} />
+                    </TouchableHighlight>
+
+                    <Text
+                        style={styles.bottomText}
+                    >
+                        {this.props.dream.comment_num}
                     </Text>
 
                 </View>
 
             </View>
         );
+    }
+
+    _onUpPress(){
+
     }
 
 }
@@ -91,17 +120,48 @@ const styles = StyleSheet.create({
         marginLeft:12,
         marginRight:12,
     },
+    nickname:{
+        color: '#333333',
+        fontSize: 15,
+    },
+    time:{
+        color: '#999999',
+        fontSize: 12,
+        marginTop: 10,
+    },
     avatar:{
         height:40,
         width:40,
+        borderRadius: 20,
     },
     content:{
+        color: '#333333',
+        fontSize: 15,
         marginTop:12,
+        lineHeight: 20,
     },
     bottom:{
         flexDirection: 'row',
         alignItems: 'center',
         marginTop:12,
+    },
+    roundButton:{
+        width: 36,
+        height: 36,
+        borderRadius: 18,
+        backgroundColor: '#EEEEEE',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    up:{
+
+    },
+    comment:{
+        width:24,
+        height:24,
+    },
+    bottomText:{
+        marginLeft: 10,
     },
 
 

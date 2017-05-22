@@ -16,8 +16,10 @@ import {
     AsyncStorage,
 } from 'react-native';
 import CommonStyle from '../../styles/CommonStyle.js';
-import DreamListItem from './DreamListItem.js'
-import NetUtil from '../../util/NetUtil.js'
+import DreamListItem from './DreamListItem.js';
+import NetUtil from '../../util/NetUtil.js';
+import ListSeparatorComponent from './ListSeparatorComponent.js';
+import ListFooterComponent from './ListFooterComponent.js';
 
 export default class HomeScreen extends React.Component{
 
@@ -74,12 +76,15 @@ export default class HomeScreen extends React.Component{
                     style={{flex:1, backgroundColor:'gray'}}
                 >
                     <FlatList
+                        style={styles.myListView}
                         data={this.state.dataSource}
                         renderItem={({item}) => this._hotDreamsRenderItem(item)}
                         refreshing={this.state.onRefreshing}
                         onRefresh={this._getHotDreams.bind(this)}
                         onEndReached={this._onEndReached.bind(this)}
                         onEndReachedThreshold={0.1}
+                        ItemSeparatorComponent={ListSeparatorComponent}
+                        ListFooterComponent={ListFooterComponent}
                     />
                 </View>
             </View>
@@ -90,7 +95,7 @@ export default class HomeScreen extends React.Component{
         this.setState({
             onRefreshing:true,
         });
-        NetUtil.latest_dreams(this.user.uid, 10, 0, this._hotDreamsCallBack.bind(this));
+        NetUtil.hot_dreams(this.user.uid, 10, 0, this._hotDreamsCallBack.bind(this));
     }
 
     _hotDreamsCallBack(json){
@@ -119,7 +124,7 @@ export default class HomeScreen extends React.Component{
         if(this.state.loadingMore){
             return;
         }
-        NetUtil.latest_dreams(this.user.uid, 10, this.state.dataSource.length, this._hotDreamsLoadMoreCallBack.bind(this));
+        NetUtil.hot_dreams(this.user.uid, 10, this.state.dataSource.length, this._hotDreamsLoadMoreCallBack.bind(this));
         this.setState({
             loadingMore: true,
         });
@@ -145,5 +150,8 @@ export default class HomeScreen extends React.Component{
 const styles = StyleSheet.create({
     contentView: {
         flex:1,
+    },
+    myListView: {
+        backgroundColor: '#E5E5E5',
     }
 });
