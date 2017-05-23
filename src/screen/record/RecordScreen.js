@@ -13,6 +13,7 @@ import {
     View
 } from 'react-native';
 import CommonStyle from '../../styles/CommonStyle.js';
+import HomeDreamList from '../home/HomeDreamList.js'
 
 export default class RecordScreen extends React.Component{
 
@@ -31,10 +32,8 @@ export default class RecordScreen extends React.Component{
 
     render() {
         return (
-            <Button
-                onPress={() => this.props.navigation.navigate('Login')}
-                title="Go to Login"
-            />
+            <HomeDreamList
+                type="my" />
         );
     }
 

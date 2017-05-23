@@ -78,7 +78,6 @@ export default class MoreListModal extends Component{
     }
 
     componentWillReceiveProps(nextProps){
-        console.log(nextProps);
         this.setState({
             modalVisible: nextProps.modalVisible,
         });

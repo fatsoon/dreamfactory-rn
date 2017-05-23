@@ -51,6 +51,7 @@ const HomeTab = TabNavigator(
     {
         tabBarOptions: {
             activeTintColor: '#0067ba',
+            lazyLoad: true,
         },
     }
 );

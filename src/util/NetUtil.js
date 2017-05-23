@@ -92,4 +92,15 @@ export default class NetUtil {
         );
     }
 
+    /**
+     * 我的梦列表
+     */
+    static my_dreams(uid, limit, offset, callback) {
+        this.post(
+            'my_dreams',
+            'uid='+uid+'&limit='+limit + '&offset='+offset,
+            callback,
+        );
+    }
+
 }
