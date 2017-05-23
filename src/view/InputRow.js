@@ -22,7 +22,7 @@ import {
 export default class InputRow extends Component{
     static propTypes = {
         placeHolder: PropTypes.string,
-        iconSource: PropTypes.object,
+        iconSource: Image.propTypes.source,
         showLine: PropTypes.bool,
         onChangeText: PropTypes.func,
         secureTextEntry: PropTypes.bool,

@@ -85,6 +85,8 @@ export default class HomeScreen extends React.Component{
                         onEndReachedThreshold={0.1}
                         ItemSeparatorComponent={ListSeparatorComponent}
                         ListFooterComponent={ListFooterComponent}
+                        keyExtractor={(item, index) => item.dream.did}
+
                     />
                 </View>
             </View>

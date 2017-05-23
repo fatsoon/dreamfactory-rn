@@ -18,10 +18,13 @@ import {
     TouchableHighlight,
     Platform,
     Image,
-    TextInput
+    TextInput,
+    Picker,
+    Modal
 } from 'react-native';
 
 import DateUtil from '../../util/DateUtil.js'
+import MoreListModal from '../../view/MoreListModal.js'
 
 export default class InputRow extends Component{
     static propTypes = {
@@ -31,6 +34,14 @@ export default class InputRow extends Component{
     static defaultProps = {
         dream: null,
     };
+
+    constructor(props){
+        super(props);
+        this.state = {
+            language: 'Java',
+            modalVisible: false,
+        };
+    }
 
 
     render() {
@@ -84,9 +95,9 @@ export default class InputRow extends Component{
                     <TouchableHighlight
                         underlayColor='#cacaca'
                         activeOpacity={0.5}
-                        style={styles.roundButton}
-                        onPress={this._onUpPress.bind(this)}>
-                        <Image style={styles.comment} source={require('../../img/ic_comment_24dp.png')} />
+                        style={[styles.roundButton, styles.commentButton]}
+                        onPress={this._onCommentPress.bind(this)}>
+                        <Image style={styles.roundButtonImage} source={require('../../img/ic_comment_24dp.png')} />
                     </TouchableHighlight>
 
                     <Text
@@ -95,16 +106,58 @@ export default class InputRow extends Component{
                         {this.props.dream.comment_num}
                     </Text>
 
+                    <View
+                        style={styles.moreButtonView}
+                    >
+                        <TouchableHighlight
+                            underlayColor='#cacaca'
+                            activeOpacity={0.5}
+                            style={[styles.roundButton, styles.moreButton]}
+                            onPress={this._onMorePress.bind(this)}>
+                            <Image style={styles.roundButtonImage} source={require('../../img/ic_more_24dp.png')} />
+                        </TouchableHighlight>
+                    </View>
+
                 </View>
+
+                <MoreListModal
+                    dataSource={[{name:'复制',key:'copy'},{name:'分享',key:'share'},{name:'举报',key:'report'}]}
+                    modalVisible={this.state.modalVisible}
+                    onItemClick={this._onMoreModalItemClick.bind(this)}
+                    dismissModal={()=>this._setModalVisible(false)}
+                />
 
             </View>
         );
     }
 
     _onUpPress(){
-
+        alert('up');
     }
 
+    _onCommentPress(){
+        alert('comment');
+    }
+
+    _onMorePress(){
+        this._setModalVisible(true);
+    }
+
+    _setModalVisible(visible) {
+        this.setState({modalVisible: visible});
+    }
+    _onMoreModalItemClick(key){
+        if(key === 'copy'){
+            alert('复制');
+        }
+        else if(key === 'share'){
+            alert('分享');
+        }
+        else if(key === 'report'){
+            alert('举报');
+        }
+
+    }
 }
 
 const styles = StyleSheet.create({
@@ -137,13 +190,13 @@ const styles = StyleSheet.create({
     content:{
         color: '#333333',
         fontSize: 15,
-        marginTop:12,
+        marginTop:18,
+        marginBottom:18,
         lineHeight: 20,
     },
     bottom:{
         flexDirection: 'row',
         alignItems: 'center',
-        marginTop:12,
     },
     roundButton:{
         width: 36,
@@ -153,42 +206,30 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
-    up:{
-
-    },
-    comment:{
+    roundButtonImage:{
         width:24,
         height:24,
+    },
+    commentButton:{
+        marginLeft: 18,
+    },
+    up:{
+        color:'#000000',
+    },
+    moreButtonView:{
+        flex:1,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'flex-end',
     },
     bottomText:{
         marginLeft: 10,
     },
-
-
-
-    row:{
-        flexDirection: 'row',
-        alignItems: 'center',
-        height:50,
-        backgroundColor:'#ffffff',
-        paddingLeft: 10,
-        paddingRight:10,
-    },
-    line:{
-        height: 1,
-        backgroundColor: '#dddddd',
-        marginLeft: 10,
-        marginRight: 10,
-    },
-    icon:{
-        width:20,
-        height:20,
-    },
-    input:{
+    modalView:{
         flex:1,
-        marginLeft: 5,
-        alignItems: 'center',
-        justifyContent: 'center',
-        fontSize: 15,
-    }
+        justifyContent: 'flex-end',
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    },
+
+
 });
