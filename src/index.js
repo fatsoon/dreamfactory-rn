@@ -20,6 +20,7 @@ import MineScreen from './screen/mine/MineScreen.js'
 import LoginScreen from './screen/login/LoginScreen.js'
 import SignUpScreen from './screen/login/SignUpScreen.js'
 import LauncherScreen from './screen/launcher/LauncherScreen.js'
+import DreamDetailScreen from './screen/detail/DreamDetailScreen.js'
 
 export default class DFApp extends Component{
 
@@ -31,7 +32,14 @@ export default class DFApp extends Component{
 
     render(){
         return(
-            <MyStack />
+            <MyStack
+                onNavigationStateChange={
+                    (prevState, currentState) => {
+                        console.log('onNavigationStateChange');
+                    }
+                }
+
+            />
         );
     }
 }
@@ -51,8 +59,8 @@ const HomeTab = TabNavigator(
     {
         tabBarOptions: {
             activeTintColor: '#0067ba',
-            lazyLoad: true,
         },
+        lazy: true,
     }
 );
 
@@ -88,6 +96,21 @@ const MyStack = StackNavigator({
             headerLeft:null,
             headerTintColor: '#ffffff',
             showIcon: true,
+            headerStyle:{
+                backgroundColor: '#0067ba',
+            },
+            headerTitleStyle:{
+                color: '#ffffff',
+            }
+        },
+    },
+    DreamDetail: {
+        screen: DreamDetailScreen,
+        navigationOptions: {
+            headerBackTitle: null,
+            headerTintColor: '#ffffff',
+            showIcon: true,
+            title: '',
             headerStyle:{
                 backgroundColor: '#0067ba',
             },

@@ -36,6 +36,8 @@ export default class HomeDreamList extends React.Component{
             dataSource:[],
             onRefreshing: false,
             loadingMore: false,
+            loadedAll: false,
+            showFooter: false,
         };
     }
 
@@ -47,13 +49,7 @@ export default class HomeDreamList extends React.Component{
             this._getDreams();
         });
     }
-    componentWillUpdate(){
-        console.log("componentWillUpdate...type = "+this.props.type);
-    }
 
-    componentWillFocus(){
-        console.log("componentWillFocus...type = "+this.props.type);
-    }
 
     render() {
         return (
@@ -72,9 +68,8 @@ export default class HomeDreamList extends React.Component{
                         onEndReached={this._onEndReached.bind(this)}
                         onEndReachedThreshold={0.1}
                         ItemSeparatorComponent={ListSeparatorComponent}
-                        ListFooterComponent={ListFooterComponent}
+                        ListFooterComponent={this.state.showFooter?ListFooterComponent:null}
                         keyExtractor={(item, index) => item.dream.did}
-
                     />
                 </View>
             </View>
@@ -97,6 +92,7 @@ export default class HomeDreamList extends React.Component{
         }
         this.setState({
             onRefreshing:true,
+            loadedAll: false,
         });
 
     }
@@ -109,6 +105,18 @@ export default class HomeDreamList extends React.Component{
             this.setState({
                 dataSource: json.dreams,
             });
+            if(json.dreams.length == 10){
+                this.setState({
+                    showFooter: true,
+                });
+            }
+            else{
+                this.setState({
+                    showFooter: false,
+                    loadedAll: true,
+                });
+            }
+
         }
         else{
             Alert.alert("提示",json.message);
@@ -119,14 +127,16 @@ export default class HomeDreamList extends React.Component{
         return(
             <DreamListItem
                 dream={item}
+                navigation={this.props.navigation}
             ></DreamListItem>
         );
     }
 
     _onEndReached(){
-        if(this.state.loadingMore){
+        if(this.state.loadingMore || this.state.loadedAll){
             return;
         }
+        console.log('_onEndReached');
         if(this.props.type === 'hot'){
             NetUtil.hot_dreams(this.user.uid, 10, this.state.dataSource.length, this._dreamsLoadMoreCallBack.bind(this));
         }
@@ -154,6 +164,17 @@ export default class HomeDreamList extends React.Component{
             this.setState({
                 dataSource: newDataArray,
             });
+            if(json.dreams.length == 10){
+                this.setState({
+                    showFooter: true,
+                });
+            }
+            else{
+                this.setState({
+                    showFooter: false,
+                    loadedAll: true,
+                });
+            }
         }
         else{
             Alert.alert("提示",json.message);

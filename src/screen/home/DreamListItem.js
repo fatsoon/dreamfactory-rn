@@ -136,7 +136,7 @@ export default class InputRow extends Component{
     }
 
     _onCommentPress(){
-        alert('comment');
+        this.props.navigation.navigate('DreamDetail',{dream:this.props.dream});
     }
 
     _onMorePress(){

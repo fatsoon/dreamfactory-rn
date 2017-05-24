@@ -49,7 +49,9 @@ export default class HomeScreen extends React.Component{
             >
                 <HomeDreamList
                     type="hot"
-                    tabLabel='热门' />
+                    tabLabel='热门'
+                    navigation={this.props.navigation}
+                />
                 <HomeDreamList
                     type="latest"
                     tabLabel='最新' />

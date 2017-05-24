@@ -17,6 +17,9 @@ import HomeDreamList from '../home/HomeDreamList.js'
 
 export default class RecordScreen extends React.Component{
 
+    componentDidMount() {
+
+    }
 
     static navigationOptions = {
         tabBarLabel: '记录',
