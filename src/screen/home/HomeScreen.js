@@ -54,7 +54,9 @@ export default class HomeScreen extends React.Component{
                 />
                 <HomeDreamList
                     type="latest"
-                    tabLabel='最新' />
+                    tabLabel='最新'
+                    navigation={this.props.navigation}
+                />
             </ScrollableTabView>
         );
     }

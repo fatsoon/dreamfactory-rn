@@ -26,7 +26,7 @@ import {
 import DateUtil from '../../util/DateUtil.js'
 import MoreListModal from '../../view/MoreListModal.js'
 
-export default class InputRow extends Component{
+export default class DreamListItem extends Component{
     static propTypes = {
         dream: PropTypes.object,
     };
@@ -46,89 +46,99 @@ export default class InputRow extends Component{
 
     render() {
         return (
-            <View style = {styles.contentView}>
-                <View style = {styles.top}>
-                    <Image style={styles.avatar} source={this.props.dream.user_avatar?{uri: this.props.dream.user_avatar}:require("../../img/ic_launcher.png")} />
-                    <View style = {styles.topRight}>
-                        <Text
-                            style={styles.nickname}
-                        >
-                            {this.props.dream.username}
-                        </Text>
+            <View>
+                <TouchableHighlight
+                    underlayColor='#E5E5E5'
+                    style = {styles.contentView}
+                    activeOpacity={1.0}
+                    onPress={this._onItemPress.bind(this)}>
+                    <View>
+                        <View style = {styles.top}>
+                            <Image style={styles.avatar} source={this.props.dream.user_avatar?{uri: this.props.dream.user_avatar}:require("../../img/ic_launcher.png")} />
+                            <View style = {styles.topRight}>
+                                <Text
+                                    style={styles.nickname}
+                                >
+                                    {this.props.dream.username}
+                                </Text>
 
-                        <Text
-                            style={styles.time}
-                        >
-                            {DateUtil.timeAgo(this.props.dream.dream.create_time_long)}
-                        </Text>
+                                <Text
+                                    style={styles.time}
+                                >
+                                    {DateUtil.timeAgo(this.props.dream.dream.create_time_long)}
+                                </Text>
 
+                            </View>
+
+                        </View>
+                        <Text
+                            style={styles.content}
+                            numberOfLines={10}
+                        >
+                            {this.props.dream.dream.content}
+                        </Text>
+                        <View style = {styles.bottom}>
+
+                            <TouchableHighlight
+                                underlayColor='#cacaca'
+                                activeOpacity={0.5}
+                                style={styles.roundButton}
+                                onPress={this._onUpPress.bind(this)}>
+                                <Text
+                                    style={styles.up}
+                                >
+                                    赞
+                                </Text>
+                            </TouchableHighlight>
+
+                            <Text
+                                style={styles.bottomText}
+                            >
+                                {this.props.dream.dream.up_num}
+                            </Text>
+
+
+                            <TouchableHighlight
+                                underlayColor='#cacaca'
+                                activeOpacity={0.5}
+                                style={[styles.roundButton, styles.commentButton]}
+                                onPress={this._onCommentPress.bind(this)}>
+                                <Image style={styles.roundButtonImage} source={require('../../img/ic_comment_24dp.png')} />
+                            </TouchableHighlight>
+
+                            <Text
+                                style={styles.bottomText}
+                            >
+                                {this.props.dream.comment_num}
+                            </Text>
+
+                            <View
+                                style={styles.moreButtonView}
+                            >
+                                <TouchableHighlight
+                                    underlayColor='#cacaca'
+                                    activeOpacity={0.5}
+                                    style={[styles.roundButton, styles.moreButton]}
+                                    onPress={this._onMorePress.bind(this)}>
+                                    <Image style={styles.roundButtonImage} source={require('../../img/ic_more_24dp.png')} />
+                                </TouchableHighlight>
+                            </View>
+
+                        </View>
                     </View>
-
-                </View>
-                <Text
-                    style={styles.content}
-                    numberOfLines={10}
-                >
-                    {this.props.dream.dream.content}
-                </Text>
-                <View style = {styles.bottom}>
-
-                    <TouchableHighlight
-                        underlayColor='#cacaca'
-                        activeOpacity={0.5}
-                        style={styles.roundButton}
-                        onPress={this._onUpPress.bind(this)}>
-                        <Text
-                            style={styles.up}
-                        >
-                            赞
-                        </Text>
-                    </TouchableHighlight>
-
-                    <Text
-                        style={styles.bottomText}
-                    >
-                        {this.props.dream.dream.up_num}
-                    </Text>
-
-
-                    <TouchableHighlight
-                        underlayColor='#cacaca'
-                        activeOpacity={0.5}
-                        style={[styles.roundButton, styles.commentButton]}
-                        onPress={this._onCommentPress.bind(this)}>
-                        <Image style={styles.roundButtonImage} source={require('../../img/ic_comment_24dp.png')} />
-                    </TouchableHighlight>
-
-                    <Text
-                        style={styles.bottomText}
-                    >
-                        {this.props.dream.comment_num}
-                    </Text>
-
-                    <View
-                        style={styles.moreButtonView}
-                    >
-                        <TouchableHighlight
-                            underlayColor='#cacaca'
-                            activeOpacity={0.5}
-                            style={[styles.roundButton, styles.moreButton]}
-                            onPress={this._onMorePress.bind(this)}>
-                            <Image style={styles.roundButtonImage} source={require('../../img/ic_more_24dp.png')} />
-                        </TouchableHighlight>
-                    </View>
-
-                </View>
-
+                </TouchableHighlight>
                 <MoreListModal
                     dataSource={[{name:'复制',key:'copy'},{name:'分享',key:'share'},{name:'举报',key:'report'}]}
                     modalVisible={this.state.modalVisible}
                     onItemClick={this._onMoreModalItemClick.bind(this)}
                     dismissModal={()=>this._setModalVisible(false)}
                 />
-
             </View>
         );
+    }
+
+    _onItemPress(){
+        this.props.navigation.navigate('DreamDetail',{dream:this.props.dream});
     }
 
     _onUpPress(){
@@ -161,6 +171,7 @@ export default class InputRow extends Component{
 }
 
 const styles = StyleSheet.create({
+
     contentView:{
         padding:12,
         backgroundColor:"#ffffff",

@@ -92,7 +92,7 @@ const MyStack = StackNavigator({
     HomeTab: {
         screen: HomeTab,
         navigationOptions: {
-            // headerStyle: { backgroundColor: color.theme }
+            headerBackTitle: null,
             headerLeft:null,
             headerTintColor: '#ffffff',
             showIcon: true,

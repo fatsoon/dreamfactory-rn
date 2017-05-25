@@ -36,7 +36,9 @@ export default class RecordScreen extends React.Component{
     render() {
         return (
             <HomeDreamList
-                type="my" />
+                type="my"
+                navigation={this.props.navigation}
+            />
         );
     }
 

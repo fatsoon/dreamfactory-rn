@@ -103,4 +103,26 @@ export default class NetUtil {
         );
     }
 
+    /**
+     * 获取梦的所有评论
+     */
+    static get_dream_comments(did, callback) {
+        this.post(
+            'get_dream_comments',
+            'did='+did,
+            callback,
+        );
+    }
+
+    /**
+     * 添加评论
+     */
+    static add_comment(uid, did, content, callback) {
+        this.post(
+            'add_comment',
+            'uid='+uid+'&did='+did + '&content='+content,
+            callback,
+        );
+    }
+
 }
