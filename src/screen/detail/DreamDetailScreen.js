@@ -6,18 +6,12 @@
 
 
 
-import React, {
-    Component,
-    PropTypes,
-} from 'react';
-
+import React, {Component, PropTypes} from "react";
 import {
     StyleSheet,
-    PixelRatio,
     Text,
     View,
     TouchableHighlight,
-    Platform,
     Image,
     TextInput,
     Alert,
@@ -29,12 +23,11 @@ import {
     Keyboard,
     AsyncStorage,
     ActivityIndicator,
-    TouchableOpacity,
-} from 'react-native';
-
-import DateUtil from '../../util/DateUtil.js'
-import CommentListItem from './CommentListItem.js'
-import NetUtil from '../../util/NetUtil.js'
+    TouchableOpacity
+} from "react-native";
+import DateUtil from "../../util/DateUtil.js";
+import CommentListItem from "./CommentListItem.js";
+import NetUtil from "../../util/NetUtil.js";
 
 export default class DreamDetailScreen extends Component{
 
@@ -87,22 +80,10 @@ export default class DreamDetailScreen extends Component{
                         onPress={()=>this.setState({modalVisible:true, disabledSendButton:true})}
                     >
                         <View
-                            style={{
-                                height:30,
-                                borderWidth:1,
-                                borderColor:'#cecece',
-                                borderRadius:15,
-                                marginLeft:15,
-                                marginRight:15,
-                                justifyContent:'center',
-                                paddingLeft:10,
-                                paddingRight:10,
-                            }}
+                            style={mainStyles.bottomInputTextContainer}
                         >
                             <Text
-                                style={{
-                                    color:'#a5a5a5'
-                                }}
+                                style={mainStyles.bottomInputText}
 
                             >写评论</Text>
 
@@ -119,27 +100,23 @@ export default class DreamDetailScreen extends Component{
                     visible={this.state.modalVisible}
                 >
                     <View
-                        style={{
-                            flex:1,
-                            justifyContent: 'flex-end',
-                            backgroundColor: 'rgba(0, 0, 0, 0.5)',
-                        }}
+                        style={addCommentStyles.contentView}
                     >
                         <TouchableWithoutFeedback
                             onPress={()=>this.setState({modalVisible:false})}
                         >
                             <View
-                                style={{flex:1}}
+                                style={addCommentStyles.topFillView}
                             />
                         </TouchableWithoutFeedback>
                         <KeyboardAvoidingView
                             behavior='position'
                         >
                             <View
-                                style={{backgroundColor:'#efefef'}}
+                                style={addCommentStyles.bottomView}
                             >
                                 <View
-                                    style={{flexDirection:'row',height:50,alignItems:'center'}}
+                                    style={addCommentStyles.titleBar}
                                 >
                                     <Button
                                         color="#000000"
@@ -147,15 +124,15 @@ export default class DreamDetailScreen extends Component{
                                         onPress={()=>this.setState({modalVisible:false})}
                                     />
                                     <View
-                                        style={{flex:1,justifyContent:'center',alignItems:'center'}}
+                                        style={addCommentStyles.titleContainer}
                                     >
                                         <Text
-                                            style={{fontSize:18,color:'#000000'}}
+                                            style={addCommentStyles.titleText}
                                         >写评论</Text>
                                     </View>
                                     {this.state.sendingComment
                                         ?<ActivityIndicator
-                                            style={{marginRight:20,}}
+                                            style={addCommentStyles.sendButtonProgressView}
                                     />
                                         :<Button
                                         color="#000000"
@@ -167,10 +144,10 @@ export default class DreamDetailScreen extends Component{
 
                                 </View>
                                 <View
-                                    style={mainStyles.inputContainer}
+                                    style={addCommentStyles.inputContainer}
                                 >
                                 <TextInput
-                                    style={mainStyles.input}
+                                    style={addCommentStyles.input}
                                     onChangeText={this._onChangeText.bind(this)}
                                     placeholderTextColor="#c7c7cd"
                                     multiline={true}
@@ -257,98 +234,29 @@ export default class DreamDetailScreen extends Component{
 
 }
 
-class DreamDetailHeader extends Component{
-
-    static propTypes = {
-        dream: PropTypes.object,
-    };
-
-    static defaultProps = {
-        dream: null,
-    };
-
-    constructor(props){
-        super(props);
-        this.state = {
-        };
-    }
-
-    componentDidMount() {
-    }
-
-
-    render() {
-        return (
-            <View>
-                <View style = {styles.contentView}>
-                    <View style = {styles.top}>
-                        <Image style={styles.avatar} source={this.props.dream.user_avatar?{uri: this.props.dream.user_avatar}:require("../../img/ic_launcher.png")} />
-                        <View style = {styles.topRight}>
-                            <Text
-                                style={styles.nickname}
-                            >
-                                {this.props.dream.username}
-                            </Text>
-
-                            <Text
-                                style={styles.time}
-                            >
-                                {DateUtil.timeAgo(this.props.dream.dream.create_time_long)}
-                            </Text>
-
-                        </View>
-
-                    </View>
-                    <Text
-                        style={styles.content}
-                    >
-                        {this.props.dream.dream.content}
-                    </Text>
-                    <View style = {styles.bottom}>
-
-                        <TouchableHighlight
-                            underlayColor='#cacaca'
-                            activeOpacity={0.5}
-                            style={styles.roundButton}
-                            onPress={this._onUpPress.bind(this)}>
-                            <Text
-                                style={styles.up}
-                            >
-                                赞
-                            </Text>
-                        </TouchableHighlight>
-
-                        <Text
-                            style={styles.bottomText}
-                        >
-                            {this.props.dream.dream.up_num}
-                        </Text>
-                    </View>
-                </View>
-                <View
-                    style={styles.line}
-                />
-            </View>
-        );
-    }
-
-    _onUpPress(){
-        alert('up');
-    }
-}
-
-const mainStyles = StyleSheet.create({
+const addCommentStyles = StyleSheet.create({
     contentView:{
         flex:1,
+        justifyContent: 'flex-end',
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
     },
-    commentListView: {
-        flex:1,
-        backgroundColor: '#F5F5F5',
+    topFillView:{
+        flex:1
     },
-    bottomInputView:{
-        height:45,
-        backgroundColor:'#fcfcfc',
-        justifyContent:'center'
+    bottomView:{
+        backgroundColor:'#efefef'
+    },
+    titleBar:{
+        flexDirection:'row',height:50,alignItems:'center'
+    },
+    titleContainer:{
+        flex:1,justifyContent:'center',alignItems:'center'
+    },
+    titleText:{
+        fontSize:18,color:'#000000'
+    },
+    sendButtonProgressView:{
+        marginRight:20,
     },
     inputContainer:{
         backgroundColor:'#ffffff',
@@ -364,12 +272,148 @@ const mainStyles = StyleSheet.create({
         height:100,
         fontSize:14,
     },
-    submitButton:{
+});
 
+class DreamDetailHeader extends Component{
+
+    static propTypes = {
+        dream: PropTypes.object,
+    };
+
+    static defaultProps = {
+        dream: null,
+    };
+
+    constructor(props){
+        super(props);
+        this.state = {
+            upNumber:props.dream.dream.up_num,
+            hasUp:props.dream.has_up,
+        };
+    }
+
+    componentDidMount() {
+        AsyncStorage.getItem("user", (error, result)=>{
+            this.user = JSON.parse(result);
+        });
+    }
+
+
+    render() {
+        return (
+            <View>
+                <View style = {headerStyles.contentView}>
+                    <View style = {headerStyles.top}>
+                        <Image style={headerStyles.avatar} source={this.props.dream.user_avatar?{uri: this.props.dream.user_avatar}:require("../../img/ic_launcher.png")} />
+                        <View style = {headerStyles.topRight}>
+                            <Text
+                                style={headerStyles.nickname}
+                            >
+                                {this.props.dream.username}
+                            </Text>
+
+                            <Text
+                                style={headerStyles.time}
+                            >
+                                {DateUtil.timeAgo(this.props.dream.dream.create_time_long)}
+                            </Text>
+
+                        </View>
+
+                    </View>
+                    <Text
+                        style={headerStyles.content}
+                    >
+                        {this.props.dream.dream.content}
+                    </Text>
+                    <View style = {headerStyles.bottom}>
+
+                        <TouchableHighlight
+                            underlayColor={this.state.hasUp==0?'#cacaca':'#e34346'}
+                            activeOpacity={1.0}
+                            style={this.state.hasUp==0?headerStyles.roundButton:headerStyles.roundButtonHasUp}
+                            onPress={this._onUpPress.bind(this)}>
+                            <Text
+                                style={this.state.hasUp==0?headerStyles.up:headerStyles.hasUp}
+                            >
+                                赞
+                            </Text>
+                        </TouchableHighlight>
+
+                        <Text
+                            style={headerStyles.bottomText}
+                        >
+                            {this.state.upNumber}
+                        </Text>
+                    </View>
+                </View>
+                <View
+                    style={headerStyles.line}
+                />
+            </View>
+        );
+    }
+
+    _onUpPress(){
+        if(this.state.hasUp == 0){
+            NetUtil.up_dream(this.user.uid, this.props.dream.dream.did, this._upCallBack.bind(this));
+            //优先用户体验，此处应当不考虑返回结果，立即更新状态
+            this.setState({
+                hasUp:1,
+                upNumber:this.state.upNumber+1,
+            });
+        }
+        else{
+            NetUtil.cancel_up_dream(this.user.uid, this.props.dream.dream.did, this._cancelUpCallBack.bind(this));
+            //优先用户体验，此处应当不考虑返回结果，立即更新状态
+            this.setState({
+                hasUp:0,
+                upNumber:this.state.upNumber-1,
+            });
+        }
+
+    }
+
+    _upCallBack(json){
+        //什么都不做，不考虑返回结果
+    }
+    _cancelUpCallBack(json){
+        //什么都不做，不考虑返回结果
+    }
+}
+
+
+
+const mainStyles = StyleSheet.create({
+    contentView:{
+        flex:1,
+    },
+    commentListView: {
+        flex:1,
+        backgroundColor: '#F5F5F5',
+    },
+    bottomInputView:{
+        height:45,
+        backgroundColor:'#fcfcfc',
+        justifyContent:'center'
+    },
+    bottomInputTextContainer:{
+        height:30,
+        borderWidth:1,
+        borderColor:'#cecece',
+        borderRadius:15,
+        marginLeft:15,
+        marginRight:15,
+        justifyContent:'center',
+        paddingLeft:10,
+        paddingRight:10,
+    },
+    bottomInputText:{
+        color:'#a5a5a5'
     },
 });
 
-const styles = StyleSheet.create({
+const headerStyles = StyleSheet.create({
     contentView: {
         padding: 12,
         backgroundColor: "#ffffff",
@@ -415,12 +459,19 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
-    roundButtonImage: {
-        width: 24,
-        height: 24,
+    roundButtonHasUp: {
+        width: 36,
+        height: 36,
+        borderRadius: 18,
+        backgroundColor: '#fc4a4e',
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     up: {
         color: '#000000',
+    },
+    hasUp: {
+        color: '#ffffff',
     },
     bottomText: {
         marginLeft: 10,

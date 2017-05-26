@@ -125,4 +125,26 @@ export default class NetUtil {
         );
     }
 
+    /**
+     * 点赞
+     */
+    static up_dream(uid, did, callback) {
+        this.post(
+            'up_dream',
+            'uid='+uid+'&did='+did,
+            callback,
+        );
+    }
+
+    /**
+     * 取消点赞
+     */
+    static cancel_up_dream(uid, did, callback) {
+        this.post(
+            'cancel_up_dream',
+            'uid='+uid+'&did='+did,
+            callback,
+        );
+    }
+
 }

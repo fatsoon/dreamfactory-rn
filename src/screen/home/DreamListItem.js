@@ -20,11 +20,14 @@ import {
     Image,
     TextInput,
     Picker,
-    Modal
+    Modal,
+    AsyncStorage
 } from 'react-native';
 
 import DateUtil from '../../util/DateUtil.js'
+import NetUtil from '../../util/NetUtil.js'
 import MoreListModal from '../../view/MoreListModal.js'
+
 
 export default class DreamListItem extends Component{
     static propTypes = {
@@ -38,11 +41,17 @@ export default class DreamListItem extends Component{
     constructor(props){
         super(props);
         this.state = {
-            language: 'Java',
             modalVisible: false,
+            hasUp:props.dream.has_up,
+            upNumber:props.dream.dream.up_num,
         };
     }
 
+    componentDidMount() {
+        AsyncStorage.getItem("user", (error, result)=>{
+            this.user = JSON.parse(result);
+        });
+    }
 
     render() {
         return (
@@ -80,12 +89,12 @@ export default class DreamListItem extends Component{
                         <View style = {styles.bottom}>
 
                             <TouchableHighlight
-                                underlayColor='#cacaca'
-                                activeOpacity={0.5}
-                                style={styles.roundButton}
+                                underlayColor={this.state.hasUp==0?'#cacaca':'#e34346'}
+                                activeOpacity={1.0}
+                                style={this.state.hasUp==0?styles.roundButton:styles.roundButtonHasUp}
                                 onPress={this._onUpPress.bind(this)}>
                                 <Text
-                                    style={styles.up}
+                                    style={this.state.hasUp==0?styles.up:styles.hasUp}
                                 >
                                     赞
                                 </Text>
@@ -94,13 +103,13 @@ export default class DreamListItem extends Component{
                             <Text
                                 style={styles.bottomText}
                             >
-                                {this.props.dream.dream.up_num}
+                                {this.state.upNumber}
                             </Text>
 
 
                             <TouchableHighlight
                                 underlayColor='#cacaca'
-                                activeOpacity={0.5}
+                                activeOpacity={1.0}
                                 style={[styles.roundButton, styles.commentButton]}
                                 onPress={this._onCommentPress.bind(this)}>
                                 <Image style={styles.roundButtonImage} source={require('../../img/ic_comment_24dp.png')} />
@@ -117,7 +126,7 @@ export default class DreamListItem extends Component{
                             >
                                 <TouchableHighlight
                                     underlayColor='#cacaca'
-                                    activeOpacity={0.5}
+                                    activeOpacity={1.0}
                                     style={[styles.roundButton, styles.moreButton]}
                                     onPress={this._onMorePress.bind(this)}>
                                     <Image style={styles.roundButtonImage} source={require('../../img/ic_more_24dp.png')} />
@@ -142,7 +151,22 @@ export default class DreamListItem extends Component{
     }
 
     _onUpPress(){
-        alert('up');
+        if(this.state.hasUp == 0){
+            NetUtil.up_dream(this.user.uid, this.props.dream.dream.did, ()=>{});
+            //优先用户体验，此处应当不考虑返回结果，立即更新状态
+            this.setState({
+                hasUp:1,
+                upNumber:this.state.upNumber+1,
+            });
+        }
+        else{
+            NetUtil.cancel_up_dream(this.user.uid, this.props.dream.dream.did, ()=>{});
+            //优先用户体验，此处应当不考虑返回结果，立即更新状态
+            this.setState({
+                hasUp:0,
+                upNumber:this.state.upNumber-1,
+            });
+        }
     }
 
     _onCommentPress(){
@@ -217,6 +241,14 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    roundButtonHasUp: {
+        width: 36,
+        height: 36,
+        borderRadius: 18,
+        backgroundColor: '#fc4a4e',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
     roundButtonImage:{
         width:24,
         height:24,
@@ -226,6 +258,9 @@ const styles = StyleSheet.create({
     },
     up:{
         color:'#000000',
+    },
+    hasUp: {
+        color: '#ffffff',
     },
     moreButtonView:{
         flex:1,
