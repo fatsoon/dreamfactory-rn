@@ -10,9 +10,13 @@ import {
     StyleSheet,
     Button,
     Image,
-    View
+    View,
+    Text,
+    TouchableHighlight,
+    AsyncStorage,
 } from 'react-native';
 import CommonStyle from '../../styles/CommonStyle.js';
+import OptionListItem from '../../view/OptionListItem.js'
 
 export default class MineScreen extends React.Component{
 
@@ -29,17 +33,139 @@ export default class MineScreen extends React.Component{
         title: '我',
     };
 
+    constructor(props){
+        super(props);
+        this.state = {
+            user: {},
+        };
+    }
+
+    componentDidMount() {
+        AsyncStorage.getItem("user", (error, result)=>{
+            let user = JSON.parse(result);
+            this.setState({
+                user:user,
+            });
+        });
+    }
+
     render() {
         return (
-            <Button
-                onPress={() => this.props.navigation.navigate('Notifications')}
-                title="Go to notifications"
-            />
+            <View
+                style={styles.contentView}
+            >
+                <View
+                    style={styles.blank}
+
+                />
+                <TouchableHighlight
+                    underlayColor='#d9d9d9'
+                    activeOpacity={1.0}
+                    style={[myprofileStyles.touchableItem]}
+                    onPress={()=>{}}>
+                    <View
+                        style={myprofileStyles.row}
+                    >
+                        <Image style={myprofileStyles.avatar} source={{uri: this.state.user.avatar}} />
+                        <Text
+                            style={myprofileStyles.text}
+                        >
+                            {this.state.user.nickname}
+                        </Text>
+
+                        <Image style={myprofileStyles.arrow} source={require('../../img/ic_arrow_right.png')} />
+                    </View>
+                </TouchableHighlight>
+
+                <View
+                    style={styles.blank}
+
+                />
+
+                <OptionListItem
+                    text="我的赞"
+                    iconSource={require('../../img/ic_thumb_up.png')}
+                    onItemClick={this._onMyProfileClicked.bind(this)}
+                    showLine={true}
+                    showBorderTop={true}
+                />
+                <OptionListItem
+                    text="草稿箱"
+                    iconSource={require('../../img/ic_description.png')}
+                    onItemClick={this._onMyProfileClicked.bind(this)}
+                    showLine={false}
+                    showBorderBottom={true}
+                />
+                <View
+                    style={styles.blank}
+
+                />
+
+                <OptionListItem
+                    text="设置"
+                    iconSource={require('../../img/ic_settings.png')}
+                    onItemClick={()=>this.props.navigation.navigate('Setting')}
+                    showLine={false}
+                    showBorderTop={true}
+                    showBorderBottom={true}
+                />
+
+            </View>
         );
     }
 
+    _onMyProfileClicked(){
+        alert('clicked');
+    }
+
+
 }
 
-const styles = StyleSheet.create({
+const myprofileStyles = StyleSheet.create({
+    touchableItem:{
+        backgroundColor:'#ffffff'
+    },
+    row:{
+        flexDirection: 'row',
+        alignItems: 'center',
+        height:70,
+        paddingLeft: 15,
+        paddingRight:14,
+        borderTopWidth:0.5,
+        borderTopColor:'#d9d9d9',
+        borderBottomWidth:0.5,
+        borderBottomColor:'#d9d9d9',
+    },
+    line:{
+        height: 1,
+        backgroundColor: '#d9d9d9',
+        marginLeft: 15,
+        marginRight: 0,
+    },
+    avatar:{
+        width:50,
+        height:50,
+        borderRadius: 25,
+    },
+    text:{
+        flex:1,
+        marginLeft: 15,
+        alignItems: 'center',
+        justifyContent: 'center',
+        fontSize: 15,
+    },
+    arrow:{
+        width:14,
+        height:14,
+    },
+});
 
+const styles = StyleSheet.create({
+    contentView:{
+        flex:1,
+        backgroundColor:'#efeff4',
+    },
+    blank:{
+       height:10,
+    },
 });

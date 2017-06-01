@@ -17,6 +17,7 @@ import { TabNavigator, StackNavigator } from 'react-navigation';
 import HomeScreen from './screen/home/HomeScreen.js'
 import RecordScreen from './screen/record/RecordScreen.js'
 import MineScreen from './screen/mine/MineScreen.js'
+import SettingScreen from './screen/mine/SettingScreen.js'
 import LoginScreen from './screen/login/LoginScreen.js'
 import SignUpScreen from './screen/login/SignUpScreen.js'
 import LauncherScreen from './screen/launcher/LauncherScreen.js'
@@ -111,6 +112,21 @@ const MyStack = StackNavigator({
             headerTintColor: '#ffffff',
             showIcon: true,
             title: '',
+            headerStyle:{
+                backgroundColor: '#0067ba',
+            },
+            headerTitleStyle:{
+                color: '#ffffff',
+            }
+        },
+    },
+    Setting: {
+        screen: SettingScreen,
+        navigationOptions: {
+            headerBackTitle: null,
+            headerTintColor: '#ffffff',
+            showIcon: true,
+            title: '设置',
             headerStyle:{
                 backgroundColor: '#0067ba',
             },
