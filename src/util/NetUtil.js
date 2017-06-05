@@ -147,4 +147,15 @@ export default class NetUtil {
         );
     }
 
+    /**
+     * 修改密码
+     */
+    static update_password(uid, oldPassword, newPassword, callback) {
+        this.post(
+            'update_password',
+            'uid='+uid+'&oldpassword='+oldPassword+'&password='+newPassword,
+            callback,
+        );
+    }
+
 }

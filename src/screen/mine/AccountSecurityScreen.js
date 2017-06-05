@@ -1,10 +1,8 @@
 /**
  * Dream Factory
  * https://github.com/fatsoon/dreamfactory-rn
- * Created by fanshuo on 2017/5/24.
+ * Created by fanshuo on 2017/6/2.
  */
-
-
 
 import React, {Component, PropTypes} from "react";
 import {
@@ -27,9 +25,9 @@ import {
 } from "react-native";
 
 import OptionListItemWithoutImage from '../../view/OptionListItemWithoutImage.js'
-import OptionListItemButton from '../../view/OptionListItemButton.js'
+import OptionListItemRightText from '../../view/OptionListItemRightText.js'
 
-export default class SettingScreen extends Component{
+export default class AccountSecurityScreen extends Component{
 
     static propTypes = {
     };
@@ -40,11 +38,17 @@ export default class SettingScreen extends Component{
     constructor(props){
         super(props);
         this.state = {
-
+            user:{},
         };
     }
 
     componentDidMount() {
+        AsyncStorage.getItem("user", (error, result)=>{
+            let user = JSON.parse(result);
+            this.setState({
+                user:user,
+            });
+        });
     }
 
     render() {
@@ -58,39 +62,34 @@ export default class SettingScreen extends Component{
                 />
 
                 <OptionListItemWithoutImage
-                    text="账号与安全"
-                    onItemClick={()=>this.props.navigation.navigate('AccountSecurity')}
-                    showLine={false}
-                    showBorderTop={true}
-                    showBorderBottom={true}
-                />
-                <View
-                    style={styles.blank}
-
-                />
-
-                <OptionListItemWithoutImage
-                    text="关于"
-                    onItemClick={this._onMyProfileClicked.bind(this)}
+                    text="修改密码"
+                    onItemClick={()=>this.props.navigation.navigate('ChangePassword')}
                     showLine={true}
                     showBorderTop={true}
+                    showBorderBottom={false}
+                />
+                <OptionListItemRightText
+                    text="手机号"
+                    rightText={this.state.user.phone}
+                    onItemClick={()=>{}}
+                    showLine={true}
+                    showBorderTop={false}
+                    showBorderBottom={false}
+                    showArrow={false}
+                />
+                <OptionListItemRightText
+                    text="邮箱"
+                    rightText={this.state.user.email?this.state.user.email:'未填写'}
+                    onItemClick={this._onMyProfileClicked.bind(this)}
+                    showLine={true}
+                    showBorderTop={false}
+                    showBorderBottom={false}
                 />
                 <OptionListItemWithoutImage
-                    text="去评分"
+                    text="社交账号绑定"
                     onItemClick={this._onMyProfileClicked.bind(this)}
                     showLine={false}
-                    showBorderBottom={true}
-                />
-                <View
-                    style={styles.blank}
-
-                />
-
-                <OptionListItemButton
-                    text="退出登录"
-                    onItemClick={this._onMyProfileClicked.bind(this)}
-                    showLine={false}
-                    showBorderTop={true}
+                    showBorderTop={false}
                     showBorderBottom={true}
                 />
 
@@ -99,7 +98,7 @@ export default class SettingScreen extends Component{
     }
 
     _onMyProfileClicked(){
-
+        alert('aaa');
     }
 
 }

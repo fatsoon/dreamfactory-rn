@@ -18,6 +18,9 @@ import HomeScreen from './screen/home/HomeScreen.js'
 import RecordScreen from './screen/record/RecordScreen.js'
 import MineScreen from './screen/mine/MineScreen.js'
 import SettingScreen from './screen/mine/SettingScreen.js'
+import MyProfileScreen from './screen/mine/MyProfileScreen.js'
+import AccountSecurityScreen from './screen/mine/AccountSecurityScreen.js'
+import ChangePasswordScreen from './screen/mine/ChangePasswordScreen.js'
 import LoginScreen from './screen/login/LoginScreen.js'
 import SignUpScreen from './screen/login/SignUpScreen.js'
 import LauncherScreen from './screen/launcher/LauncherScreen.js'
@@ -135,12 +138,58 @@ const MyStack = StackNavigator({
             }
         },
     },
+    MyProfile: {
+        screen: MyProfileScreen,
+        navigationOptions: {
+            headerBackTitle: null,
+            headerTintColor: '#ffffff',
+            showIcon: true,
+            title: '个人信息',
+            headerStyle:{
+                backgroundColor: '#0067ba',
+            },
+            headerTitleStyle:{
+                color: '#ffffff',
+            }
+        },
+    },
+    AccountSecurity: {
+        screen: AccountSecurityScreen,
+        navigationOptions: {
+            headerBackTitle: null,
+            headerTintColor: '#ffffff',
+            showIcon: true,
+            title: '账号与安全',
+            headerStyle:{
+                backgroundColor: '#0067ba',
+            },
+            headerTitleStyle:{
+                color: '#ffffff',
+            }
+        },
+    },
+    ChangePassword: {
+        screen: ChangePasswordScreen,
+        navigationOptions: {
+            headerBackTitle: null,
+            headerTintColor: '#ffffff',
+            showIcon: true,
+            title: '修改密码',
+            headerStyle:{
+                backgroundColor: '#0067ba',
+            },
+            headerTitleStyle:{
+                color: '#ffffff',
+            }
+        },
+    },
 
 });
 
 const defaultGetStateForAction = MyStack.router.getStateForAction;
 
 MyStack.router.getStateForAction = (action, state) => {
+    //闪屏页面过去以后要从routes中删掉，只保留Login页面
     if (state && action.type === 'Navigation/NAVIGATE' && action.routeName === 'Login') {
         const initialNavState = {
             index: 0,
@@ -153,6 +202,7 @@ MyStack.router.getStateForAction = (action, state) => {
         };
         return initialNavState;
     }
+    //登录页面过去以后要从routes中删掉，只保留HomeTab页面
     if (state && action.type === 'Navigation/NAVIGATE' && action.routeName === 'HomeTab') {
         const initialNavState = {
             index: 0,

@@ -62,7 +62,7 @@ export default class MineScreen extends React.Component{
                     underlayColor='#d9d9d9'
                     activeOpacity={1.0}
                     style={[myprofileStyles.touchableItem]}
-                    onPress={()=>{}}>
+                    onPress={()=>this.props.navigation.navigate('MyProfile')}>
                     <View
                         style={myprofileStyles.row}
                     >
