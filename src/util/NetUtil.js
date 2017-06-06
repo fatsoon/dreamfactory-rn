@@ -158,4 +158,25 @@ export default class NetUtil {
         );
     }
 
+    /**
+     * 修改邮箱
+     */
+    static update_email(uid, email, callback) {
+        this.post(
+            'update_email',
+            'uid='+uid+'&email='+email,
+            callback,
+        );
+    }
+
+    /**
+     * 修改昵称
+     */
+    static update_nickname(uid, nickname, callback) {
+        this.post(
+            'update_nickname',
+            'uid='+uid+'&nickname='+nickname,
+            callback,
+        );
+    }
 }

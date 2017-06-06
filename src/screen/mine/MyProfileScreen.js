@@ -54,6 +54,15 @@ export default class MyProfileScreen extends Component{
         });
     }
 
+    componentWillUpdate(){
+        AsyncStorage.getItem("user", (error, result)=>{
+            let user = JSON.parse(result);
+            this.setState({
+                user:user,
+            });
+        });
+    }
+
     render() {
         return (
             <View
@@ -92,7 +101,7 @@ export default class MyProfileScreen extends Component{
                 <OptionListItemRightText
                     text="昵称"
                     rightText={this.state.user.nickname}
-                    onItemClick={this._onMyProfileClicked.bind(this)}
+                    onItemClick={()=>this.props.navigation.navigate('ChangeNickname')}
                     showLine={false}
                     showBorderBottom={true}
                 />

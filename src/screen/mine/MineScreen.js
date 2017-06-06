@@ -49,6 +49,15 @@ export default class MineScreen extends React.Component{
         });
     }
 
+    componentWillUpdate(){
+        AsyncStorage.getItem("user", (error, result)=>{
+            let user = JSON.parse(result);
+            this.setState({
+                user:user,
+            });
+        });
+    }
+
     render() {
         return (
             <View

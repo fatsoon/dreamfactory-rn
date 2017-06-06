@@ -51,6 +51,15 @@ export default class AccountSecurityScreen extends Component{
         });
     }
 
+    componentWillUpdate(){
+        AsyncStorage.getItem("user", (error, result)=>{
+            let user = JSON.parse(result);
+            this.setState({
+                user:user,
+            });
+        });
+    }
+
     render() {
         return (
             <View
@@ -80,7 +89,7 @@ export default class AccountSecurityScreen extends Component{
                 <OptionListItemRightText
                     text="邮箱"
                     rightText={this.state.user.email?this.state.user.email:'未填写'}
-                    onItemClick={this._onMyProfileClicked.bind(this)}
+                    onItemClick={()=>this.props.navigation.navigate('ChangeEmail')}
                     showLine={true}
                     showBorderTop={false}
                     showBorderBottom={false}

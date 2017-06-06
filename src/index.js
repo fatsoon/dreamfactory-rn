@@ -21,6 +21,8 @@ import SettingScreen from './screen/mine/SettingScreen.js'
 import MyProfileScreen from './screen/mine/MyProfileScreen.js'
 import AccountSecurityScreen from './screen/mine/AccountSecurityScreen.js'
 import ChangePasswordScreen from './screen/mine/ChangePasswordScreen.js'
+import ChangeEmailScreen from './screen/mine/ChangeEmailScreen.js'
+import ChangeNicknameScreen from './screen/mine/ChangeNicknameScreen.js'
 import LoginScreen from './screen/login/LoginScreen.js'
 import SignUpScreen from './screen/login/SignUpScreen.js'
 import LauncherScreen from './screen/launcher/LauncherScreen.js'
@@ -175,6 +177,36 @@ const MyStack = StackNavigator({
             headerTintColor: '#ffffff',
             showIcon: true,
             title: '修改密码',
+            headerStyle:{
+                backgroundColor: '#0067ba',
+            },
+            headerTitleStyle:{
+                color: '#ffffff',
+            }
+        },
+    },
+    ChangeEmail: {
+        screen: ChangeEmailScreen,
+        navigationOptions: {
+            headerBackTitle: null,
+            headerTintColor: '#ffffff',
+            showIcon: true,
+            title: '修改邮箱',
+            headerStyle:{
+                backgroundColor: '#0067ba',
+            },
+            headerTitleStyle:{
+                color: '#ffffff',
+            }
+        },
+    },
+    ChangeNickname: {
+        screen: ChangeNicknameScreen,
+        navigationOptions: {
+            headerBackTitle: null,
+            headerTintColor: '#ffffff',
+            showIcon: true,
+            title: '修改昵称',
             headerStyle:{
                 backgroundColor: '#0067ba',
             },

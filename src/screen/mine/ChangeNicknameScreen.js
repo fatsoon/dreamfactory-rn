@@ -27,7 +27,7 @@ import {
 import RadiusButton from '../../view/RadiusButton.js';
 import NetUtil from '../../util/NetUtil.js'
 
-export default class ChangeEmailScreen extends Component{
+export default class ChangeNicknameScreen extends Component{
 
     static propTypes = {
     };
@@ -39,7 +39,7 @@ export default class ChangeEmailScreen extends Component{
         super(props);
         this.state = {
             user:{},
-            email:'',
+            nickname:'',
         };
     }
 
@@ -65,10 +65,10 @@ export default class ChangeEmailScreen extends Component{
                 >
                     <TextInput
                         style={styles.input}
-                        placeholder='请输入新邮箱'
+                        placeholder='请输入新昵称'
                         placeholderTextColor="#c7c7cd"
                         secureTextEntry = {false}
-                        onChangeText={(text) => this.setState({email:text})}
+                        onChangeText={(text) => this.setState({nickname:text})}
                     />
                 </View>
 
@@ -95,13 +95,13 @@ export default class ChangeEmailScreen extends Component{
     }
 
     _onButtonClick(){
-        NetUtil.update_email(this.state.user.uid,this.state.email, this._updateEmailCallBack.bind(this));
+        NetUtil.update_nickname(this.state.user.uid,this.state.nickname, this._updateEmailCallBack.bind(this));
     }
 
     _updateEmailCallBack(json){
         if(json.code == 0){
             let user = this.state.user;
-            user.email = this.state.email;
+            user.nickname = this.state.nickname;
 
             AsyncStorage.setItem("user", JSON.stringify(user),(error, result)=>{
                 Alert.alert("提示",
@@ -111,6 +111,7 @@ export default class ChangeEmailScreen extends Component{
                     ]
                 )
             });
+
         }
         else{
             Alert.alert("提示",json.message)
