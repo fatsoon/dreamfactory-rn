@@ -27,6 +27,7 @@ import LoginScreen from './screen/login/LoginScreen.js'
 import SignUpScreen from './screen/login/SignUpScreen.js'
 import LauncherScreen from './screen/launcher/LauncherScreen.js'
 import DreamDetailScreen from './screen/detail/DreamDetailScreen.js'
+import AddRecordScreen from './screen/record/AddRecordScreen.js'
 
 export default class DFApp extends Component{
 
@@ -214,6 +215,9 @@ const MyStack = StackNavigator({
                 color: '#ffffff',
             }
         },
+    },
+    AddRecord: {
+        screen: AddRecordScreen,
     },
 
 });

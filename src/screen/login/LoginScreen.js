@@ -47,7 +47,10 @@ export default class LoginScreen extends React.Component{
             showIcon: true,
             title: '登录',
             headerRight: (
-                <DFNavigationItem onPress={()=>{navigation.navigate('SignUp')}} />
+                <DFNavigationItem
+                    onPress={()=>{navigation.navigate('SignUp')}}
+                    title="注册"
+                />
             ),
             headerStyle: {
                 backgroundColor: '#0067ba',

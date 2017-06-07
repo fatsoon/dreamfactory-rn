@@ -23,7 +23,7 @@ export default class DFNavigationItem extends Component{
                     style={styles.container}
                 >
                 <Text
-                    style={styles.text}>注册</Text>
+                    style={styles.text}>{this.props.title}</Text>
                 </View>
             </TouchableOpacity>
         );
