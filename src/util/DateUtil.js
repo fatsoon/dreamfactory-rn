@@ -39,7 +39,7 @@ export default class DateUtil{
             return Math.floor(offsetMinutes) + '分钟前';
         }
         else if(offsetHours < 24){
-            return Math.floor(offsetMinutes) + '小时前';
+            return Math.floor(offsetHours) + '小时前';
         }
         else if(offsetDays < 30){
             return Math.floor(offsetDays) + '天前';

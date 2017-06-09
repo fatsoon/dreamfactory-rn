@@ -179,4 +179,15 @@ export default class NetUtil {
             callback,
         );
     }
+
+    /**
+     * 添加梦
+     */
+    static add_dream(uid, content, callback) {
+        this.post(
+            'add_dream',
+            'uid='+uid+'&content='+content,
+            callback,
+        );
+    }
 }
