@@ -63,7 +63,12 @@ export default class DreamListItem extends Component{
                     onPress={this._onItemPress.bind(this)}>
                     <View>
                         <View style = {styles.top}>
-                            <Image style={styles.avatar} source={this.props.dream.user_avatar?{uri: this.props.dream.user_avatar}:require("../../img/ic_launcher.png")} />
+                            <TouchableHighlight
+                                activeOpacity={0.5}
+                                style={styles.avatar}
+                                onPress={this._onAvatarPress.bind(this)}>
+                                <Image style={styles.avatar} source={this.props.dream.user_avatar?{uri: this.props.dream.user_avatar}:require("../../img/ic_launcher.png")} />
+                            </TouchableHighlight>
                             <View style = {styles.topRight}>
                                 <Text
                                     style={styles.nickname}
@@ -148,6 +153,10 @@ export default class DreamListItem extends Component{
 
     _onItemPress(){
         this.props.navigation.navigate('DreamDetail',{dream:this.props.dream});
+    }
+
+    _onAvatarPress(){
+        this.props.navigation.navigate('UserDreams',{userId:this.props.dream.uid});
     }
 
     _onUpPress(){

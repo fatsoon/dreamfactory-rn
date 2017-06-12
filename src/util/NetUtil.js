@@ -93,6 +93,17 @@ export default class NetUtil {
     }
 
     /**
+     * 获取别人的梦
+     */
+    static user_dreams(uid, myUid, limit, offset, callback) {
+        this.post(
+            'user_dreams',
+            'uid='+uid+'&limit='+limit + '&offset='+offset + '&my_uid=' + myUid,
+            callback,
+        );
+    }
+
+    /**
      * 我的梦列表
      */
     static my_dreams(uid, limit, offset, callback) {
@@ -187,6 +198,17 @@ export default class NetUtil {
         this.post(
             'add_dream',
             'uid='+uid+'&content='+content,
+            callback,
+        );
+    }
+
+    /**
+     * 获取用户信息
+     */
+    static get_user_info(uid, callback) {
+        this.post(
+            'get_user_info',
+            'uid='+uid,
             callback,
         );
     }

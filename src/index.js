@@ -28,6 +28,7 @@ import SignUpScreen from './screen/login/SignUpScreen.js'
 import LauncherScreen from './screen/launcher/LauncherScreen.js'
 import DreamDetailScreen from './screen/detail/DreamDetailScreen.js'
 import AddRecordScreen from './screen/record/AddRecordScreen.js'
+import UserDreamsScreen from './screen/userDreams/UserDreamsScreen.js'
 
 export default class DFApp extends Component{
 
@@ -125,6 +126,10 @@ const MyStack = StackNavigator({
                 color: '#ffffff',
             }
         },
+    },
+    UserDreams: {
+        screen: UserDreamsScreen,
+
     },
     Setting: {
         screen: SettingScreen,
