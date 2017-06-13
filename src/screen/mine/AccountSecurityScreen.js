@@ -21,7 +21,7 @@ import {
     Keyboard,
     AsyncStorage,
     ActivityIndicator,
-    TouchableOpacity
+    TouchableOpacity,
 } from "react-native";
 
 import OptionListItemWithoutImage from '../../view/OptionListItemWithoutImage.js'
@@ -90,17 +90,11 @@ export default class AccountSecurityScreen extends Component{
                     text="邮箱"
                     rightText={this.state.user.email?this.state.user.email:'未填写'}
                     onItemClick={()=>this.props.navigation.navigate('ChangeEmail')}
-                    showLine={true}
-                    showBorderTop={false}
-                    showBorderBottom={false}
-                />
-                <OptionListItemWithoutImage
-                    text="社交账号绑定"
-                    onItemClick={this._onMyProfileClicked.bind(this)}
                     showLine={false}
                     showBorderTop={false}
                     showBorderBottom={true}
                 />
+
 
             </View>
         );

@@ -29,6 +29,8 @@ import LauncherScreen from './screen/launcher/LauncherScreen.js'
 import DreamDetailScreen from './screen/detail/DreamDetailScreen.js'
 import AddRecordScreen from './screen/record/AddRecordScreen.js'
 import UserDreamsScreen from './screen/userDreams/UserDreamsScreen.js'
+import MyUpDreamsScreen from './screen/mine/MyUpDreamsScreen.js'
+import AboutScreen from './screen/mine/AboutScreen.js'
 
 export default class DFApp extends Component{
 
@@ -131,6 +133,10 @@ const MyStack = StackNavigator({
         screen: UserDreamsScreen,
 
     },
+    MyUpDreams: {
+        screen: MyUpDreamsScreen,
+
+    },
     Setting: {
         screen: SettingScreen,
         navigationOptions: {
@@ -145,6 +151,11 @@ const MyStack = StackNavigator({
                 color: '#ffffff',
             }
         },
+    },
+
+    About: {
+        screen: AboutScreen,
+
     },
     MyProfile: {
         screen: MyProfileScreen,

@@ -94,7 +94,7 @@ export default class MineScreen extends React.Component{
                 <OptionListItem
                     text="我的赞"
                     iconSource={require('../../img/ic_thumb_up.png')}
-                    onItemClick={this._onMyProfileClicked.bind(this)}
+                    onItemClick={()=>this.props.navigation.navigate('MyUpDreams')}
                     showLine={true}
                     showBorderTop={true}
                 />

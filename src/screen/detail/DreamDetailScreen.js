@@ -304,7 +304,7 @@ class DreamDetailHeader extends Component{
             <View>
                 <View style = {headerStyles.contentView}>
                     <View style = {headerStyles.top}>
-                        <Image style={headerStyles.avatar} source={this.props.dream.user_avatar?{uri: this.props.dream.user_avatar}:require("../../img/ic_launcher.png")} />
+                        <Image style={headerStyles.avatar} source={this.props.dream.user_avatar?{uri: this.props.dream.user_avatar}:require("../../img/ic_avatar_default.jpg")} />
                         <View style = {headerStyles.topRight}>
                             <Text
                                 style={headerStyles.nickname}

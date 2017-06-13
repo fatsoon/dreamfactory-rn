@@ -50,7 +50,7 @@ export default class CommentListItem extends Component{
                     <View
                         style = {styles.left}
                     >
-                        <Image style={styles.avatar} source={this.props.comment.user_avatar?{uri: this.props.comment.user_avatar}:require("../../img/ic_launcher.png")} />
+                        <Image style={styles.avatar} source={this.props.comment.user_avatar?{uri: this.props.comment.user_avatar}:require("../../img/ic_avatar_default.jpg")} />
 
                     </View>
                     <View

@@ -67,7 +67,7 @@ export default class DreamListItem extends Component{
                                 activeOpacity={0.5}
                                 style={styles.avatar}
                                 onPress={this._onAvatarPress.bind(this)}>
-                                <Image style={styles.avatar} source={this.props.dream.user_avatar?{uri: this.props.dream.user_avatar}:require("../../img/ic_launcher.png")} />
+                                <Image style={styles.avatar} source={this.props.dream.user_avatar?{uri: this.props.dream.user_avatar}:require("../../img/ic_avatar_default.jpg")} />
                             </TouchableHighlight>
                             <View style = {styles.topRight}>
                                 <Text

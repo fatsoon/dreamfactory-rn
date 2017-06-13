@@ -71,7 +71,7 @@ export default class SettingScreen extends Component{
 
                 <OptionListItemWithoutImage
                     text="关于"
-                    onItemClick={this._onMyProfileClicked.bind(this)}
+                    onItemClick={()=>this.props.navigation.navigate('About')}
                     showLine={true}
                     showBorderTop={true}
                 />

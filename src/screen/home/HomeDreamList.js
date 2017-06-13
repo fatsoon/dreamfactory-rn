@@ -87,6 +87,9 @@ export default class HomeDreamList extends React.Component{
         else if(this.props.type === 'my'){
             NetUtil.my_dreams(this.user.uid, 10, 0, this._getDreamsCallBack.bind(this));
         }
+        else if(this.props.type === 'my_up'){
+            NetUtil.my_up_dreams(this.user.uid, 10, 0, this._getDreamsCallBack.bind(this));
+        }
         else{
             return;
         }
@@ -145,6 +148,9 @@ export default class HomeDreamList extends React.Component{
         }
         else if(this.props.type === 'my'){
             NetUtil.my_dreams(this.user.uid, 10, this.state.dataSource.length, this._dreamsLoadMoreCallBack.bind(this));
+        }
+        else if(this.props.type === 'my_up'){
+            NetUtil.my_up_dreams(this.user.uid, 10, this.state.dataSource.length, this._dreamsLoadMoreCallBack.bind(this));
         }
         else{
             return;

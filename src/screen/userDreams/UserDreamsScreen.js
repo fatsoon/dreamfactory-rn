@@ -94,7 +94,7 @@ export default class UserDreamsScreen extends Component{
                 <View style={headerStyles.contentView}>
                     <Image
                         style={headerStyles.avatar}
-                        source={this.state.userInfo?{uri: this.state.userInfo.avatar}:require("../../img/ic_launcher.png")}
+                        source={this.state.userInfo&&this.state.userInfo.avatar?{uri: this.state.userInfo.avatar}:require("../../img/ic_avatar_default.jpg")}
                     />
                     <Text
                         style={headerStyles.nickname}
