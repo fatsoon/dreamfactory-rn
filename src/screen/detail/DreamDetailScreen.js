@@ -23,7 +23,8 @@ import {
     Keyboard,
     AsyncStorage,
     ActivityIndicator,
-    TouchableOpacity
+    TouchableOpacity,
+    Platform,
 } from "react-native";
 import DateUtil from "../../util/DateUtil.js";
 import CommentListItem from "./CommentListItem.js";
@@ -99,9 +100,11 @@ export default class DreamDetailScreen extends Component{
                     transparent={true}
                     visible={this.state.modalVisible}
                 >
+
                     <View
                         style={addCommentStyles.contentView}
                     >
+
                         <TouchableWithoutFeedback
                             onPress={()=>this.setState({modalVisible:false})}
                         >
@@ -109,6 +112,8 @@ export default class DreamDetailScreen extends Component{
                                 style={addCommentStyles.topFillView}
                             />
                         </TouchableWithoutFeedback>
+
+
                         <KeyboardAvoidingView
                             behavior='position'
                         >
@@ -131,15 +136,17 @@ export default class DreamDetailScreen extends Component{
                                         >写评论</Text>
                                     </View>
                                     {this.state.sendingComment
-                                        ?<ActivityIndicator
+                                        ?
+                                        <ActivityIndicator
                                             style={addCommentStyles.sendButtonProgressView}
-                                    />
-                                        :<Button
-                                        color="#000000"
-                                        title="发送"
-                                        disabled={this.state.disabledSendButton}
-                                        onPress={this._sendComment.bind(this)}
-                                    />
+                                        />
+                                        :
+                                        <Button
+                                            color="#000000"
+                                            title="发送"
+                                            disabled={this.state.disabledSendButton}
+                                            onPress={this._sendComment.bind(this)}
+                                        />
                                     }
 
                                 </View>
@@ -159,6 +166,7 @@ export default class DreamDetailScreen extends Component{
 
                         </KeyboardAvoidingView>
                     </View>
+
                 </Modal>
             </View>
         );

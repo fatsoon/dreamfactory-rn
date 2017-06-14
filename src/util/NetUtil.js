@@ -20,10 +20,20 @@ export default class NetUtil {
             },
             body: params
         })
-            .then((response) => response.json())
+            .then((response) => {
+                if(response.status == 200)
+                    return response.json();
+                else
+                    return {code:-1,message:'请求服务器出错！（'+response.status+'）'};
+            })
             .then((responseJSON) => {
                 callback(responseJSON)
-            }).done();
+            })
+            .catch((error) => {
+                console.error(error);
+                // alert(error);
+                callback({code:-1,message:'网络请求失败'});
+            })
     }
 
     /**

@@ -11,9 +11,10 @@ import {
     Button,
     Image,
     View,
-    StatusBar
+    StatusBar,
+    Platform,
 } from 'react-native';
-import { TabNavigator, StackNavigator } from 'react-navigation';
+import { TabNavigator, StackNavigator,TabBarBottom } from 'react-navigation';
 import HomeScreen from './screen/home/HomeScreen.js'
 import RecordScreen from './screen/record/RecordScreen.js'
 import MineScreen from './screen/mine/MineScreen.js'
@@ -37,7 +38,11 @@ export default class DFApp extends Component{
     constructor() {
         super()
 
-        StatusBar.setBarStyle('light-content')
+        StatusBar.setBarStyle('light-content');
+        if (Platform.OS === 'android') {
+            StatusBar.setBackgroundColor('#0067ba');
+        }
+
     }
 
     render(){
@@ -67,6 +72,10 @@ const HomeTab = TabNavigator(
         },
     },
     {
+        tabBarComponent:TabBarBottom,
+        tabBarPosition:'bottom',
+        swipeEnabled:false,
+        animationEnabled:false,
         tabBarOptions: {
             activeTintColor: '#0067ba',
         },

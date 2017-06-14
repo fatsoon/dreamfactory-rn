@@ -14,6 +14,7 @@ import {
     Text,
     TouchableHighlight,
     AsyncStorage,
+    Alert,
 } from 'react-native';
 import CommonStyle from '../../styles/CommonStyle.js';
 import OptionListItem from '../../view/OptionListItem.js'
@@ -101,7 +102,7 @@ export default class MineScreen extends React.Component{
                 <OptionListItem
                     text="草稿箱"
                     iconSource={require('../../img/ic_description.png')}
-                    onItemClick={this._onMyProfileClicked.bind(this)}
+                    onItemClick={()=>{Alert.alert('提示','敬请期待')}}
                     showLine={false}
                     showBorderBottom={true}
                 />
@@ -121,10 +122,6 @@ export default class MineScreen extends React.Component{
 
             </View>
         );
-    }
-
-    _onMyProfileClicked(){
-        alert('clicked');
     }
 
 
