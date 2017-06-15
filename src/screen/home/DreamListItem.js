@@ -21,7 +21,8 @@ import {
     TextInput,
     Picker,
     Modal,
-    AsyncStorage
+    AsyncStorage,
+    Clipboard,
 } from 'react-native';
 
 import DateUtil from '../../util/DateUtil.js'
@@ -142,7 +143,7 @@ export default class DreamListItem extends Component{
                     </View>
                 </TouchableHighlight>
                 <MoreListModal
-                    dataSource={[{name:'复制',key:'copy'},{name:'分享',key:'share'},{name:'举报',key:'report'}]}
+                    dataSource={[{name:'复制',key:'copy'},{name:'举报',key:'report'}]}
                     modalVisible={this.state.modalVisible}
                     onItemClick={this._onMoreModalItemClick.bind(this)}
                     dismissModal={()=>this._setModalVisible(false)}
@@ -191,13 +192,12 @@ export default class DreamListItem extends Component{
     }
     _onMoreModalItemClick(key){
         if(key === 'copy'){
-            alert('复制');
-        }
-        else if(key === 'share'){
-            alert('分享');
+            Clipboard.setString(this.props.dream.dream.content);
+            this._setModalVisible(false);
         }
         else if(key === 'report'){
-            alert('举报');
+            this.props.navigation.navigate('Report',{dream:this.props.dream});
+            this._setModalVisible(false);
         }
 
     }

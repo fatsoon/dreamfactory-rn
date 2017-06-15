@@ -23,7 +23,8 @@ import {
     Keyboard,
     AsyncStorage,
     ActivityIndicator,
-    TouchableOpacity
+    TouchableOpacity,
+    NativeModules,
 } from "react-native";
 
 import OptionListItemWithoutImage from '../../view/OptionListItemWithoutImage.js'
@@ -77,7 +78,10 @@ export default class MyProfileScreen extends Component{
                     underlayColor='#d9d9d9'
                     activeOpacity={1.0}
                     style={[avatarStyles.touchableItem]}
-                    onPress={()=>{}}>
+                    onPress={()=>{
+                        let AvatarManager = NativeModules.AvatarManager;
+                        AvatarManager.addEvent('Birthday Party', '4 Privet Drive, Surrey');
+                    }}>
                     <View>
                         <View
                             style={[avatarStyles.row,avatarStyles.borderTop]}

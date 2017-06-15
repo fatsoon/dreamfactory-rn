@@ -32,6 +32,7 @@ import AddRecordScreen from './screen/record/AddRecordScreen.js'
 import UserDreamsScreen from './screen/userDreams/UserDreamsScreen.js'
 import MyUpDreamsScreen from './screen/mine/MyUpDreamsScreen.js'
 import AboutScreen from './screen/mine/AboutScreen.js'
+import ReportScreen from './screen/home/ReportScreen.js'
 
 export default class DFApp extends Component{
 
@@ -243,6 +244,21 @@ const MyStack = StackNavigator({
     },
     AddRecord: {
         screen: AddRecordScreen,
+    },
+    Report: {
+        screen: ReportScreen,
+        navigationOptions: {
+            headerBackTitle: null,
+            headerTintColor: '#ffffff',
+            showIcon: true,
+            title: '举报',
+            headerStyle:{
+                backgroundColor: '#0067ba',
+            },
+            headerTitleStyle:{
+                color: '#ffffff',
+            }
+        },
     },
 
 });
