@@ -6,4 +6,6 @@
  - [react-native-scrollable-tab-view](https://github.com/skv-headless/react-native-scrollable-tab-view)
  
 ## 效果图
-正在上传
+![1](./screenshot/1.png)
+![2](./screenshot/1.png)
+![3](./screenshot/1.png)
